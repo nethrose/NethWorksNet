@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+$width: 1em;
+$bg: #201c29;
+$color: #ab49de;
+
+body {
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font: 62.5% "Montserrat", sans-serif;
+  background-color: $bg;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAQAAAC00HvSAAAAqUlEQVR4AaXTIa7EMBBEwfrSAAODwAUfGBiY5P7H26XDIqXfAUrpseI520fcAf+itgEqgW4TMugoCKA2J4DanAQ6CgKozYmg44IMuhVk0FaQQceEDLoNyKBtQAZtExKozQkot7Dv37e42rqoaUk6Koe21ngJLYMManN6034xJzz2UnqvvugY+fNvIIOWIoW24aHnG20V/yJtTgAtAyKozQmgpURdLp+nOT9tfAyifaRWFwAAAABJRU5ErkJggg==);
+}
+
+h1 {
+  transform: rotate(180deg);
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 2rem;
+  writing-mode: vertical-rl;
+  color: $color;
+  background-image: linear-gradient(
+    -90deg,
+    $color,
+    darken($color, 50%)
+  );
+  -webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+  user-select: none;
+}
+
+.bar {
+  margin: 0;
+  padding: $width;
+  display: flex;
+  min-width: 380px;
+  height: 100px;
+  justify-content: space-around;
+  align-items: center;
+
+  li {
+    position: relative;
+    list-style: none;
+    border-radius: $width;
+
+    &::before,
+    &::after {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: -1;
+      content: "";
+      width: 0%;
+      height: 2px;
+      background-color: darken($color, 10%);
+      // transition: all 0.6s cubic-bezier(1, -1, 0.65, -1.05);   
+      transition: all 0.5s cubic-bezier(0.4, -1, 0.2, -1);
+    }
+
+    &:before {
+      top: 0;
+      border-top-right-radius: $width / 2;
+      border-top-left-radius: $width / 2;
+    }
+    &::after {
+      bottom: 0;
+      border-bottom-right-radius: $width / 2;
+      border-bottom-left-radius: $width / 2;
+    }
+
+    &:hover {
+      &::before,
+      &::after {
+        width: 25%;
+        height: 3px;
+      }
+    }
+
+    a {
+      text-decoration: none;
+      text-transform: uppercase;
+      display: block;
+      padding: $width / 2 ($width * 2);
+      font-size: 1rem;
+      font-weight: 700;
+      color: lighten($color, 20%);
+    }
+
+    &.active {
+      border-color: darken($color, 40%);
+
+      &::before,
+      &::after {
+        width: 100%;
+        height: 50%;
+      }
+    }
+  }
+}
