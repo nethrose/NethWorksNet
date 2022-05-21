@@ -1,26 +1,8 @@
-<!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8">
-    <title>Neth Works Net</title>
-        <style>
-      p {
-        font-family: 'helvetica neue', helvetica, sans-serif;
-        letter-spacing: 1px;
-        text-align: center;
-        border: 2px solid rgba(0,0,200,0.6);
-        background: rgb(2,0,36);
-        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(70,24,121,1) 100%, rgba(0,212,255,1) 100%);
-        color: rgba(169,169,169);
-        box-shadow: 1px 1px 2px rgba(0,0,200,0.4);
-        border-radius: 10px;
-        padding: 3px 10px;
-        display: inline-block;
-        cursor: pointer;
-      }
-    </style>
-  </head>
-    <body>
-    <p>Neth Works Net</p>
-  </body>
-</html>
+h1 Neth Works Net
+ul.bar
+  - for (var c = 0; c < 4; c++)
+    li
+      - var link = "#";
+      - var title = "Click me";
+      - var name = "Link";
+      a(href=link title=title) #{name}
