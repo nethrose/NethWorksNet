@@ -21,8 +21,9 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   user-select: none;
-  
-  .gradient-underline {
+}
+
+.gradient-underline {
     padding-bottom: 4px;
     position: relative;
     text-decoration: none;
@@ -38,7 +39,6 @@ h1 {
     height: 2px;
     width: 100%;
  }
-}
 
 .bar {
   margin: 0;
