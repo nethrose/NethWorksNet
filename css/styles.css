@@ -17,7 +17,7 @@ h1 {
   font-size: 2rem;
   writing-mode: horizontal-tb;
   color: #ab49de;
-  background-image: linear-gradient(-90deg, #180622, #ab49de);
+  background-image: linear-gradient(-90deg, #180622, #ab49de, #180622);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   user-select: none;
