@@ -31,7 +31,7 @@ h1 {
 
 .gradient-underline::after {
     background: #d39fee;
-    background: linear-gradient(to right, transparent 0%, #f00 50%, transparent 100%);  
+    background: linear-gradient(to right, transparent 0%, #d39fee 50%, transparent 100%);  
     content: "";
     position: absolute;
     bottom: 0;
