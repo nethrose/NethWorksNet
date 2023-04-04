@@ -1,47 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
   <head>
-    <meta charset="UTF-8" />
+    <meta charset='UTF-8'/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neth Works Net</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Montserrat"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel='stylesheet' href='../css/styles.css'>
   </head>
   <body>
     <header>
       <h1><span class="gradient-underline">Neth Works Net</span></h1>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="#" data-link="about">About</a></li>
-          <li><a href="#" data-link="blog">Blog</a></li>
-          <li><a href="#" data-link="content">Content</a></li>
-          <li><a href="#" data-link="contact">Contact</a></li>
-        </ul>
-      </nav>
     </header>
-
-    <div class="content">
-      <div id="about" class="page">
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#" data-page="about">About</a></li>
+        <li><a href="#" data-page="blog">Blog</a></li>
+        <li><a href="#" data-page="content">Content</a></li>
+        <li><a href="#" data-page="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <main class="content">
+      <div id="about" class="page active">
         <h2>About</h2>
-        <p>This is the about page.</p>
+        <p>Some information about me.</p>
       </div>
       <div id="blog" class="page">
         <h2>Blog</h2>
-        <p>This is the blog page.</p>
+        <p>Some blog posts.</p>
       </div>
       <div id="content" class="page">
         <h2>Content</h2>
-        <p>This is the content page.</p>
+        <p>Some content.</p>
       </div>
       <div id="contact" class="page">
         <h2>Contact</h2>
-        <p>This is the contact page.</p>
+        <p>Contact me.</p>
       </div>
-    </div>
-
-    <script src="../javascript/app.js"></script>
+    </main>
+    <script src='../javascript/app.js'></script>
   </body>
 </html>
