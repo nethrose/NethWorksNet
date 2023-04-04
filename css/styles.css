@@ -4,100 +4,72 @@ body {
   margin: 0;
   font: 62.5% "Montserrat", sans-serif;
   background-color: #201c29;
-  color: #fff;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAQAAAC00HvSAAAAqUlEQVR4AaXTIa7EMBBEwfrSAAODwAUfGBiY5P7H26XDIqXfAUrpseI520fcAf+itgEqgW4TMugoCKA2J4DanAQ6CgKozYmg44IMuhVk0FaQQceEDLoNyKBtQAZtExKozQkot7Dv37e42rqoaUk6Koe21ngJLYMManN6034xJzz2UnqvvugY+fNvIIOWIoW24aHnG20V/yJtTgAtAyKozQmgpURdLp+nOT9tfAyifaRWFwAAAABJRU5ErkJggg==);
 }
 
 h1 {
-  font-size: 3rem;
   text-transform: uppercase;
-  letter-spacing: 0.5rem;
   text-align: center;
-  color: #d39fee;
-  margin-top: 2rem;
+  font-size: 2rem;
+  writing-mode: horizontal-tb;
+  color: #ab49de;
+  background-image: linear-gradient(-90deg, #ab49de, #ab49de);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  user-select: none;
+  margin-top: 0;
+  padding-top: 2rem;
+}
+
+.gradient-underline {
+  padding-bottom: 4px;
+  position: relative;
+  text-decoration: none;
+}
+
+.gradient-underline::after {
+  background: #d39fee;
+  background: linear-gradient(to right, transparent 0%, #d39fee 50%, transparent 100%);
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
 }
 
 nav {
+  position: fixed;
+  top: 8rem;
+  left: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  height: 90vh;
-  width: 20vw;
-  background-color: #201c29;
-  position: fixed;
-  top: 10vh;
-  left: 0;
-}
-
-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-nav li {
-  margin: 1rem 0;
+  width: 10rem;
+  background-color: #1c1c1c;
+  padding: 1rem;
 }
 
 nav a {
-  text-decoration: none;
-  text-transform: uppercase;
-  font-weight: 700;
   color: #d39fee;
-  padding: 0.5rem 2rem;
-  display: block;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
 }
 
 nav a:hover {
-  background-color: #9525cf;
-  color: #fff;
+  background-color: #3a3a3a;
 }
 
 main {
-  margin-left: 20vw;
+  margin-left: 12rem;
   padding: 2rem;
-  background-color: #201c29;
 }
 
 section {
-  margin: 4rem 0;
+  display: none;
 }
 
-h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: #d39fee;
-}
-
-p {
-  font-size: 1.6rem;
-  line-height: 1.5;
-  margin-bottom: 2rem;
-}
-
-@media screen and (max-width: 768px) {
-  nav {
-    width: 100%;
-    height: auto;
-    position: relative;
-    top: 0;
-    left: 0;
-  }
-
-  nav ul {
-    flex-direction: row;
-    justify-content: space-around;
-  }
-
-  nav li {
-    margin: 0;
-  }
-
-  nav a {
-    padding: 1rem;
-  }
-
-  main {
-    margin: 10vh 2rem 2rem;
-  }
+section:target {
+  display: block;
 }
