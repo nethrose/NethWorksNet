@@ -3,74 +3,14 @@
 body {
   margin: 0;
   font: 62.5% "Montserrat", sans-serif;
+  background-color: #f5f5f5;
 }
 
-h1 {
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 2rem;
-  writing-mode: horizontal-tb;
-  color: #ab49de;
-  background-image: linear-gradient(-90deg, #ab49de, #ab49de);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  user-select: none;
-}
-
-.gradient-underline {
-  padding-bottom: 4px;
-  position: relative;
-  text-decoration: none;
-}
-
-.gradient-underline::after {
-  background: #d39fee;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    #d39fee 50%,
-    transparent 100%
-  );
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  width: 100%;
-}
-
-nav {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 150px;
-  background-color: #201c29;
-  color: #d39fee;
-  overflow-y: auto;
-}
-
-.nav-links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.nav-links li {
-  margin: 0;
-}
-
-.nav-links li a {
-  display: block;
-  padding: 1rem;
-  text-decoration: none;
-  color: inherit;
-}
 .content {
   margin-left: 150px;
   padding: 2rem;
   background-color: #f5f5f5;
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
 }
 
 .page {
@@ -81,14 +21,34 @@ nav {
   display: block;
 }
 
-.bar li {
-  position: relative;
-  list-style: none;
-  border-radius: 1em;
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  padding: 0 2rem;
+  background-color: #201c29;
 }
 
-.bar li::before,
-.bar li::after {
+nav h1 {
+  font-size: 2rem;
+  color: #ab49de;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin-left: 2rem;
+  position: relative;
+}
+
+.nav-links li::before,
+.nav-links li::after {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -100,41 +60,38 @@ nav {
   transition: all 0.5s cubic-bezier(0.4, -1, 0.2, -1);
 }
 
-.bar li:before {
+.nav-links li::before {
   top: 0;
   border-top-right-radius: 0.5em;
   border-top-left-radius: 0.5em;
 }
 
-.bar li::after {
+.nav-links li::after {
   bottom: 0;
   border-bottom-right-radius: 0.5em;
   border-bottom-left-radius: 0.5em;
 }
 
-.bar li:hover::before,
-.bar li:hover::after {
+.nav-links li:hover::before,
+.nav-links li:hover::after {
   width: 25%;
   height: 3px;
 }
 
-.bar li a {
+.nav-links li a {
   text-decoration: none;
   text-transform: uppercase;
-  display: block;
-  padding: 0.5em 2em;
   font-size: 1rem;
   font-weight: 700;
   color: #d39fee;
 }
 
-.bar li.active {
+.nav-links li.active {
   border-color: #370e4d;
 }
 
-.bar li.active::before,
-.bar li.active::after {
+.nav-links li.active::before,
+.nav-links li.active::after {
   width: 100%;
   height: 50%;
 }
-
