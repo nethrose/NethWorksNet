@@ -1,41 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NETH WORKS NET</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <meta charset='UTF-8'/>
+    <title>Neth Works Net</title>
+    <link rel='stylesheet' href='./css/styles.css'>
   </head>
   <body>
-    <header>
-      <h1>NETH WORKS NET</h1>
-    </header>
-    <nav>
+    <div class="header">
+      <h1><span class="gradient-underline">Neth Works Net</span></h1>
+    </div>
+    <nav class="navbar">
       <ul>
-        <li><a href="#" data-content="about">ABOUT</a></li>
-        <li><a href="#" data-content="blog">BLOG</a></li>
-        <li><a href="#" data-content="content">CONTENT</a></li>
-        <li><a href="#" data-content="contact">CONTACT</a></li>
+        <li><a href="#" title="Click me" class="nav-link" data-tab="about">About</a></li>
+        <li><a href="#" title="Click me" class="nav-link" data-tab="blog">Blog</a></li>
+        <li><a href="#" title="Click me" class="nav-link" data-tab="content">Content</a></li>
+        <li><a href="#" title="Click me" class="nav-link" data-tab="contact">Contact</a></li>
       </ul>
     </nav>
-    <main>
-      <section id="about" class="content">
+    <div class="tab-content">
+      <div class="tab-panel" data-tab="about">
         <h2>About</h2>
-        <p>Welcome to my portfolio site!</p>
-      </section>
-      <section id="blog" class="content">
+        <p>Content for About section goes here.</p>
+      </div>
+      <div class="tab-panel" data-tab="blog">
         <h2>Blog</h2>
-        <p>Check out my latest blog posts.</p>
-      </section>
-      <section id="content" class="content">
+        <p>Content for Blog section goes here.</p>
+      </div>
+      <div class="tab-panel" data-tab="content">
         <h2>Content</h2>
-        <p>Here's some of my recent work.</p>
-      </section>
-      <section id="contact" class="content">
+        <p>Content for Content section goes here.</p>
+      </div>
+      <div class="tab-panel" data-tab="contact">
         <h2>Contact</h2>
-        <p>Get in touch with me.</p>
-      </section>
-    </main>
-    <script src="js/app.js"></script>
+        <p>Content for Contact section goes here.</p>
+      </div>
+    </div>
+    <script src='./javascript/app.js'></script>
   </body>
 </html>
