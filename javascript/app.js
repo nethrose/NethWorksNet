@@ -1,15 +1,15 @@
-const navLinks = document.querySelectorAll(".nav-links li a");
-const pages = document.querySelectorAll(".page");
+const links = document.querySelectorAll("nav a");
 
-navLinks.forEach((link) => {
-  link.addEventListener("click", (event) => {
+links.forEach(function (link) {
+  link.addEventListener("click", function (event) {
     event.preventDefault();
-    const target = link.getAttribute("data-link");
-    pages.forEach((page) => {
-      page.classList.remove("active");
-      if (page.getAttribute("id") === target) {
-        page.classList.add("active");
-      }
+    const contentId = this.getAttribute("data-content");
+    const content = document.getElementById(contentId);
+
+    document.querySelectorAll(".content").forEach(function (c) {
+      c.style.display = "none";
     });
+
+    content.style.display = "block";
   });
 });
