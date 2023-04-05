@@ -51,14 +51,14 @@ links.forEach(function (link) {
 
     // Move the clicked link to the center under the main title
     const linkRect = this.getBoundingClientRect();
-    const x = titleRect.left + (titleRect.width / 2);
-    const y = titleRect.bottom + 20;
-    const dx = x - (linkRect.left + (linkRect.width / 2));
-    const dy = y - (linkRect.top + (linkRect.height / 2));
+    const header = document.querySelector(".header");
+    const titleCenter = header.offsetLeft + header.offsetWidth / 2;
+    const y = titleRect.bottom + 0.2;
+    const dy = y - linkRect.top;
 
-    this.style.top = `${linkRect.top + dy}px`;
-    this.style.left = `${linkRect.left + dx}px`;
-    this.style.transform = "";
+    this.style.top = `${linkRect.top + dy - (this.offsetHeight / 2)}px`;
+    this.style.left = `${titleCenter}px`;
+    this.style.transform = "translate(-50%, -50%)";
 
     const mainContent = document.getElementById("main-content");
 
