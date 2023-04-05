@@ -8,7 +8,7 @@ const contentMap = {
         <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
       </div>
       <div class="linkedin-widget">
-        <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="HORIZONTAL" data-vanity="neth-rose-91463791" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/neth-rose-91463791?trk=profile-badge">Neth Rose</a></div>
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:6826650171595763712" height="795" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe></div>
       </div>
     </div>
     <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
