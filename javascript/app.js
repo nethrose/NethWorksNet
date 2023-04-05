@@ -32,6 +32,10 @@ links.forEach(function (link) {
       activeLink.style.top = "";
       activeLink.style.left = "";
       activeLink.style.transform = "";
+      activeLink.style.opacity = 0.5;
+
+      // Remove the active class from the previously active link
+      activeLink.classList.remove("active");
     }
 
     if (activeLink === this) {
@@ -39,11 +43,6 @@ links.forEach(function (link) {
       this.classList.remove("active");
       document.getElementById("main-content").innerHTML = "";
       return;
-    }
-
-    // Remove the active class from the previously active link
-    if (activeLink) {
-      activeLink.classList.remove("active");
     }
 
     // Add the active class to the clicked link
@@ -59,6 +58,7 @@ links.forEach(function (link) {
     this.style.top = `${linkRect.top + dy - (this.offsetHeight / 2)}px`;
     this.style.left = `${titleCenter}px`;
     this.style.transform = "translate(-50%, -50%)";
+    this.style.opacity = 1;
 
     const mainContent = document.getElementById("main-content");
 
