@@ -87,7 +87,7 @@ nav a {
 }
 
 nav a.active {
-  transition: top 1s, left 1s, transform 1s;
+  transition: top 1s, left 1s, transform 1s, opacity 1s;
 }
 
 nav a::before {
@@ -110,7 +110,7 @@ nav a:hover::before {
 
 main {
   margin-left: 12rem;
-  padding: 2rem;
+  padding: 2rem 2rem 2rem 0;
 }
 
 section {
@@ -119,4 +119,44 @@ section {
 
 section:target {
   display: block;
+}
+
+.profile-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-image: linear-gradient(to right, #1abc9c, #2c3e50);
+  border-radius: 1rem;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.github-widget,
+.linkedin-widget {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.content-section {
+  position: relative;
+  border-radius: 15px;
+  padding: 20px;
+  overflow: hidden;
+  background-color: rgba(62, 62, 62, 0.8);
+  margin: 10px;
+  box-shadow: 0 0 20px 10px rgba(62, 62, 62, 0.8); /* Add box-shadow to create the soft edges */
+}
+
+.content-section::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  left: -10px;
+  right: -10px;
+  border-radius: 25px;
+  z-index: -1;
+  background: inherit;
+  filter: blur(10px);
 }
