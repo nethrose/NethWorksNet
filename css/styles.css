@@ -144,7 +144,7 @@ section:target {
   padding: 20px;
   overflow: hidden;
   background-color: rgba(62, 62, 62, 0.8);
-  margin: 10px;
+  margin: 30px;
   box-shadow: 0 0 20px 10px rgba(62, 62, 62, 0.8); /* Add box-shadow to create the soft edges */
 }
 
