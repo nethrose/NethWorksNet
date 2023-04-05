@@ -30,6 +30,27 @@ const contentMap = {
   </div>`,
 };
 
+function updateActiveLinkPosition() {
+  const activeLink = document.querySelector(".nav-link.active");
+  if (!activeLink) return;
+  
+  activeLink.style.transition = "none";
+
+  const titleRect = document.querySelector(".header").getBoundingClientRect();
+  const linkRect = activeLink.getBoundingClientRect();
+  const header = document.querySelector(".header");
+  const titleCenter = header.offsetLeft + header.offsetWidth / 2;
+  const y = titleRect.bottom + 0.2;
+  const dy = y - linkRect.top;
+
+  activeLink.style.top = `${linkRect.top + dy - (activeLink.offsetHeight / 2)}px`;
+  activeLink.style.left = `${titleCenter}px`;
+  setTimeout(() => {
+    activeLink.style.transition = "";
+  }, 100);
+}
+
+
 function insertHTMLAndExecuteScripts(container, html, callback) {
   container.innerHTML = html;
   
@@ -105,7 +126,9 @@ links.forEach(function (link) {
           }
         }
       });
-
+window.addEventListener("scroll", updateActiveLinkPosition);
+window.addEventListener("resize", updateActiveLinkPosition);
+updateActiveLinkPosition();
       // Fade in the new content
       mainContent.style.opacity = 1;
     }, 500); // 1s matches the CSS transition duration
