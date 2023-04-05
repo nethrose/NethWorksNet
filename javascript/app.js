@@ -4,8 +4,8 @@ const contentMap = {
   about: `
     <div class="content-section profile-container">
       <div class="github-widget">
-        <div class="github-card" data-github="nethrose" data-width="400" data-height="200" data-theme="default"></div>
-        <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+        <div class="github-card" data-github="nethrose" data-width="400" data-height="318" data-theme="medium"></div>
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
       </div>
       <div class="linkedin-widget">
         <iframe src="linkedin-badge.html" width="100%" height="300" frameborder="0"></iframe>
