@@ -85,6 +85,6 @@ links.forEach(function (link) {
 
       // Fade in the new content
       mainContent.style.opacity = 1;
-    }, 1000); // 1s matches the CSS transition duration
+    }, 500); // 1s matches the CSS transition duration
   });
 });
