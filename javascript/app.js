@@ -31,6 +31,20 @@ const contentMap = {
   </div>`,
 };
 
+function insertHTMLAndExecuteScripts(container, html) {
+  container.innerHTML = html;
+  
+  const scripts = Array.from(container.getElementsByTagName("script"));
+
+  scripts.forEach(function (script) {
+    const newScript = document.createElement("script");
+    Array.from(script.attributes).forEach(function (attr) {
+      newScript.setAttribute(attr.name, attr.value);
+    });
+    newScript.innerHTML = script.innerHTML;
+    script.parentNode.replaceChild(newScript, script);
+  });
+}
 
 const titleRect = document.querySelector(".header").getBoundingClientRect();
 
@@ -81,7 +95,8 @@ links.forEach(function (link) {
     // Wait for the animation to complete
     setTimeout(() => {
       // Update content
-      mainContent.innerHTML = contentMap[this.getAttribute("data-tab")];
+      insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")]);
+
 
       // Fade in the new content
       mainContent.style.opacity = 1;
