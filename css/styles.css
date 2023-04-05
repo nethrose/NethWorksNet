@@ -58,6 +58,22 @@ nav ul {
   align-items: center;
 }
 
+.nav-link.active {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+}
+
+.nav-link.moving {
+  z-index: 100;
+}
+
+.nav-link.active::before {
+  width: 100%;
+}
+
 nav a {
   color: #d39fee;
   text-decoration: none;
@@ -67,6 +83,11 @@ nav a {
   font-size: 1.4rem;
   position: relative;
   display: inline-block;
+  transition: all 0.5s ease;
+}
+
+nav a.active {
+  transition: top 1s, left 1s, transform 1s;
 }
 
 nav a::before {
@@ -80,6 +101,7 @@ nav a::before {
   transform: translateX(-50%) scaleX(0.1); /* adjust the transform to center the underline */
   transform-origin: center;
   transition: transform 0.3s ease;
+  transition: width 0.5s ease;
 }
 
 nav a:hover::before {
