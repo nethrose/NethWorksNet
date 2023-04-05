@@ -87,7 +87,7 @@ nav a {
 }
 
 nav a.active {
-  transition: top 1s, left 1s, transform 1s, opacity 1s;
+  transition: top 0.5s, left 0.5s, transform 0.5s, opacity 0.5s;
 }
 
 nav a::before {
