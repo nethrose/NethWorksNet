@@ -8,10 +8,10 @@ const contentMap = {
         <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
       </div>
       <div class="linkedin-widget">
-        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/neth-rose-91463791" data-format="inline" data-related="false"></script>
+        <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="HORIZONTAL" data-vanity="neth-rose-91463791" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/neth-rose-91463791?trk=profile-badge">Neth Rose</a></div>
       </div>
     </div>
-    <script src="https://platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
   `,
 
   blog: `
@@ -92,10 +92,16 @@ links.forEach(function (link) {
     // Fade out the existing content
     mainContent.style.opacity = 0;
 
-    // Wait for the animation to complete
-    setTimeout(() => {
-      // Update content
-      insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")]);
+setTimeout(() => {
+  // Update content
+  insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")]);
+
+  // Check if the current tab is the 'about' section, and if so, trigger LinkedIn widget re-parse
+  if (this.getAttribute("data-tab") === "about") {
+    if (window.IN && window.IN.parse) {
+      window.IN.parse(mainContent);
+    }
+  }
 
 
       // Fade in the new content
