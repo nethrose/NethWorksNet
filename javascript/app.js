@@ -31,7 +31,7 @@ const contentMap = {
   </div>`,
 };
 
-function insertHTMLAndExecuteScripts(container, html) {
+function insertHTMLAndExecuteScripts(container, html, callback) {
   container.innerHTML = html;
   
   const scripts = Array.from(container.getElementsByTagName("script"));
@@ -44,6 +44,10 @@ function insertHTMLAndExecuteScripts(container, html) {
     newScript.innerHTML = script.innerHTML;
     script.parentNode.replaceChild(newScript, script);
   });
+
+  if (callback) {
+    callback();
+  }
 }
 
 const titleRect = document.querySelector(".header").getBoundingClientRect();
@@ -92,17 +96,16 @@ links.forEach(function (link) {
     // Fade out the existing content
     mainContent.style.opacity = 0;
 
-setTimeout(() => {
-  // Update content
-  insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")]);
-
-  // Check if the current tab is the 'about' section, and if so, trigger LinkedIn widget re-parse
-  if (this.getAttribute("data-tab") === "about") {
-    if (window.IN && window.IN.parse) {
-      window.IN.parse(mainContent);
-    }
-  }
-
+    setTimeout(() => {
+      // Update content
+      insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")], () => {
+        // Check if the current tab is the 'about' section, and if so, trigger LinkedIn widget re-parse
+        if (this.getAttribute("data-tab") === "about") {
+          if (window.IN && window.IN.parse) {
+            window.IN.parse(mainContent);
+          }
+        }
+      });
 
       // Fade in the new content
       mainContent.style.opacity = 1;
