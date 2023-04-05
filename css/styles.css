@@ -40,25 +40,50 @@ h1 {
 
 nav {
   position: fixed;
-  top: 8rem;
+  top: 9rem; /* move the nav further up */
   left: 0;
   display: flex;
   flex-direction: column;
-  width: 10rem;
-  background-color: #1c1c1c;
   padding: 1rem;
+  background-color: transparent;
+  transform: translateY(-50%); /* center the nav vertically */
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 nav a {
   color: #d39fee;
   text-decoration: none;
   padding: 0.5rem 1rem;
-  margin: 0.5rem 0;
+  margin: 0.0rem 0;
   border-radius: 0.5rem;
+  font-size: 1.4rem;
+  position: relative;
+  display: inline-block;
 }
 
-nav a:hover {
-  background-color: #3a3a3a;
+nav a::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent 0%, #d39fee 50%, transparent 100%);
+  transform: translateX(-50%) scaleX(0.1); /* adjust the transform to center the underline */
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+nav a:hover::before {
+  transform: translateX(-50%) scaleX(1); /* adjust the transform on hover to keep the underline centered */
 }
 
 main {
