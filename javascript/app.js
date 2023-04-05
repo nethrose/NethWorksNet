@@ -8,10 +8,9 @@ const contentMap = {
         <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
       </div>
       <div class="linkedin-widget">
-        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:6826650171595763712" height="795" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe></div>
+        <iframe src="linkedin-badge.html" width="100%" height="300" frameborder="0"></iframe>
       </div>
     </div>
-    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
   `,
 
   blog: `
