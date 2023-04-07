@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const postsPath = path.join(__dirname, '..', 'blog');
-const postsJsonPath = path.join(__dirname, '..', 'posts.json');
+const postsJsonPath = path.join(__dirname, '..', 'blog', 'posts.json');
 
 // Read the existing posts JSON file
 const existingPosts = require(postsJsonPath);
