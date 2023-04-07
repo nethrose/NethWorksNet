@@ -19,9 +19,6 @@ jobs:
         with:
           node-version: 14
 
-      - name: Install dependencies
-        run: npm ci
-
       - name: Update posts
         run: |
           # Get the list of files in the /blog folder
