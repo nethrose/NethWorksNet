@@ -1,54 +1,22 @@
+// app.js
+import { loadBlogPosts, blogContent, handleBlogPostClick } from './blog.js';
+
 const links = document.querySelectorAll("nav a");
 const navBar = document.querySelector(".navbar");
-
-async function loadBlogPosts() {
-  return new Promise(async (resolve) => {
-    const response = await fetch("/blog/post-list.json");
-    const blogPostFiles = await response.json();
-
-    blogPostFiles.sort((a, b) => {
-      const dateA = a.split("-").splice(0, 3).join("-");
-      const dateB = b.split("-").splice(0, 3).join("-");
-      return new Date(dateB) - new Date(dateA);
-    });
-
-    let blogPosts = '';
-
-    for (const file of blogPostFiles) {
-      const response = await fetch(`blog/${file}`);
-      const content = await response.text();
-      const title = content.match(/<h2>(.*?)<\/h2>/)[1];
-
-      blogPosts += `<a href="#" class="blog-post-link" data-post="${file}">${title}</a><br>`;
-    }
-
-    resolve(blogPosts);
-  });
-}
 
 const contentMap = {
   about: `
     <div class="content-section profile-container">
       <div class="github-widget">
         <div class="github-card" data-github="nethrose" data-width="400" data-height="318" data-theme="medium"></div>
-<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+        <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
       </div>
       <div class="pdf-widget">
         <iframe src="https://drive.google.com/file/d/1a5NZHkTW_YsSrGCTynd2_9XUquK-x10F/preview" width="100%" height="300" frameborder="0"></iframe>
       </div>
     </div>
   `,
-  blog: async () => {
-    const blogPosts = await loadBlogPosts();
-    return `
-      <div class="content-section rendered-content">
-        <h2>Blog</h2>
-        <div id="blog-posts">
-          ${blogPosts}
-        </div>
-        <div id="blog-post-content"></div>
-      </div>`;
-  },
+  blog: blogContent,
   content: `
     <div class="content-section rendered-content">
       <h2>Content</h2>
@@ -86,30 +54,22 @@ function insertHTMLAndExecuteScripts(container, htmlOrPromise, callback) {
   
     const scripts = Array.from(container.getElementsByTagName("script"));
 
-          scripts.forEach(function (script) {
-        const newScript = document.createElement("script");
-        Array.from(script.attributes).forEach(function (attr) {
-          newScript.setAttribute(attr.name, attr.value);
-        });
-        newScript.innerHTML = script.innerHTML;
-        script.parentNode.replaceChild(newScript, script);
+    scripts.forEach(function (script) {
+      const newScript = document.createElement("script");
+      Array.from(script.attributes).forEach(function (attr) {
+        newScript.setAttribute(attr.name, attr.value);
       });
-
-      if (callback) {
-        callback();
-      }
+      newScript.innerHTML = script.innerHTML;
+      script.parentNode.replaceChild(newScript, script);
     });
-  }
+
+    if (callback) {
+      callback();
+    }
+  });
+}
 
 const titleRect = document.querySelector(".header").getBoundingClientRect();
-
-async function handleBlogPostClick(event) {
-  event.preventDefault();
-  const postFileName = event.target.getAttribute("data-post");
-  const response = await fetch(`/blog/${postFileName}`);
-  const content = await response.text();
-  document.getElementById("blog-post-content").innerHTML = content;
-}
 
 links.forEach(function (link) {
   link.addEventListener("click", function (event) {
@@ -136,7 +96,7 @@ links.forEach(function (link) {
     const linkRect = this.getBoundingClientRect();
     const header = document.querySelector(".header");
     const titleCenter = header.offsetLeft + header.offsetWidth / 2;
-    const y = titleRect.bottom + 0.2;
+        const y = titleRect.bottom + 0.2;
     const dy = y - linkRect.top;
 
     this.style.top = `${linkRect.top + dy - (this.offsetHeight / 2)}px`;
@@ -168,3 +128,4 @@ links.forEach(function (link) {
     }, 500); // 1s matches the CSS transition duration
   });
 });
+
