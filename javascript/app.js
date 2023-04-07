@@ -16,7 +16,7 @@ const contentMap = {
       </div>
     </div>
   `,
-  blog: blogContent,
+  blog: async () => await blogContent(),
   content: `
     <div class="content-section rendered-content">
       <h2>Content</h2>
