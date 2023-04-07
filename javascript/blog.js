@@ -1,7 +1,7 @@
 // blog.js
 export async function loadBlogPosts() {
   return new Promise(async (resolve) => {
-    const response = await fetch("/blog/post-list.json");
+    const response = await fetch("/blog/posts.json");
     const blogPostFiles = await response.json();
 
     blogPostFiles.sort((a, b) => {
