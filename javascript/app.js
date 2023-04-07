@@ -1,5 +1,31 @@
 const links = document.querySelectorAll("nav a");
 const navBar = document.querySelector(".navbar");
+
+async function loadBlogPosts() {
+  return new Promise(async (resolve) => {
+    const response = await fetch("/blog/post-list.json");
+    const blogPostFiles = await response.json();
+
+    blogPostFiles.sort((a, b) => {
+      const dateA = a.split("-").splice(0, 3).join("-");
+      const dateB = b.split("-").splice(0, 3).join("-");
+      return new Date(dateB) - new Date(dateA);
+    });
+
+    let blogPosts = '';
+
+    for (const file of blogPostFiles) {
+      const response = await fetch(`blog/${file}`);
+      const content = await response.text();
+      const title = content.match(/<h2>(.*?)<\/h2>/)[1];
+
+      blogPosts += `<a href="#" class="blog-post-link" data-post="${file}">${title}</a><br>`;
+    }
+
+    resolve(blogPosts);
+  });
+}
+
 const contentMap = {
   about: `
     <div class="content-section profile-container">
@@ -12,22 +38,27 @@ const contentMap = {
       </div>
     </div>
   `,
-
-  blog: `
-  <div class="content-section">
-    <h2>Blog</h2>
-    <p>Content for Blog section goes here.</p>
-  </div>`,
+  blog: async () => {
+    const blogPosts = await loadBlogPosts();
+    return `
+      <div class="content-section">
+        <h2>Blog</h2>
+        <div id="blog-posts">
+          ${blogPosts}
+        </div>
+        <div id="blog-post-content"></div>
+      </div>`;
+  },
   content: `
-  <div class="content-section">
-    <h2>Content</h2>
-    <p>Content for Content section goes here.</p>
-  </div>`,
+    <div class="content-section">
+      <h2>Content</h2>
+      <p>Content for Content section goes here.</p>
+    </div>`,
   contact: `
-  <div class="content-section">
-    <h2>Contact</h2>
-    <p>Content for Contact section goes here.</p>
-  </div>`,
+    <div class="content-section">
+      <h2>Contact</h2>
+      <p>Content for Contact section goes here.</p>
+    </div>`,
 };
 
 function updateActiveLinkPosition() {
@@ -35,7 +66,6 @@ function updateActiveLinkPosition() {
   if (!activeLink) return;
   
   activeLink.style.transition = "none";
-
   const titleRect = document.querySelector(".header").getBoundingClientRect();
   const linkRect = activeLink.getBoundingClientRect();
   const header = document.querySelector(".header");
@@ -50,27 +80,36 @@ function updateActiveLinkPosition() {
   }, 100);
 }
 
-
-function insertHTMLAndExecuteScripts(container, html, callback) {
-  container.innerHTML = html;
+function insertHTMLAndExecuteScripts(container, htmlOrPromise, callback) {
+  Promise.resolve(htmlOrPromise).then((html) => {
+    container.innerHTML = html;
   
-  const scripts = Array.from(container.getElementsByTagName("script"));
+    const scripts = Array.from(container.getElementsByTagName("script"));
 
-  scripts.forEach(function (script) {
-    const newScript = document.createElement("script");
-    Array.from(script.attributes).forEach(function (attr) {
-      newScript.setAttribute(attr.name, attr.value);
+          scripts.forEach(function (script) {
+        const newScript = document.createElement("script");
+        Array.from(script.attributes).forEach(function (attr) {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+        newScript.innerHTML = script.innerHTML;
+        script.parentNode.replaceChild(newScript, script);
+      });
+
+      if (callback) {
+        callback();
+      }
     });
-    newScript.innerHTML = script.innerHTML;
-    script.parentNode.replaceChild(newScript, script);
-  });
-
-  if (callback) {
-    callback();
   }
-}
 
 const titleRect = document.querySelector(".header").getBoundingClientRect();
+
+async function handleBlogPostClick(event) {
+  event.preventDefault();
+  const postFileName = event.target.getAttribute("data-post");
+  const response = await fetch(`/blog/${postFileName}`);
+  const content = await response.text();
+  document.getElementById("blog-post-content").innerHTML = content;
+}
 
 links.forEach(function (link) {
   link.addEventListener("click", function (event) {
@@ -79,27 +118,21 @@ links.forEach(function (link) {
     const activeLink = document.querySelector(".nav-link.active");
 
     if (activeLink) {
-      // Animate the active link back to its original position
       activeLink.style.top = "";
       activeLink.style.left = "";
       activeLink.style.transform = "";
       activeLink.style.opacity = 0.5;
-
-      // Remove the active class from the previously active link
       activeLink.classList.remove("active");
     }
 
     if (activeLink === this) {
-      // If the same link is clicked again, remove the active class
       this.classList.remove("active");
       document.getElementById("main-content").innerHTML = "";
       return;
     }
 
-    // Add the active class to the clicked link
     this.classList.add("active");
 
-    // Move the clicked link to the center under the main title
     const linkRect = this.getBoundingClientRect();
     const header = document.querySelector(".header");
     const titleCenter = header.offsetLeft + header.offsetWidth / 2;
@@ -112,24 +145,25 @@ links.forEach(function (link) {
     this.style.opacity = 1;
 
     const mainContent = document.getElementById("main-content");
-
-    // Fade out the existing content
     mainContent.style.opacity = 0;
 
     setTimeout(() => {
-      // Update content
       insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")], () => {
-        // Check if the current tab is the 'about' section, and if so, trigger LinkedIn widget re-parse
         if (this.getAttribute("data-tab") === "about") {
           if (window.IN && window.IN.parse) {
             window.IN.parse(mainContent);
           }
+        } else if (this.getAttribute("data-tab") === "blog") {
+          const blogPostLinks = document.querySelectorAll(".blog-post-link");
+          blogPostLinks.forEach((blogPostLink) => {
+            blogPostLink.addEventListener("click", handleBlogPostClick);
+          });
         }
       });
-window.addEventListener("scroll", updateActiveLinkPosition);
-window.addEventListener("resize", updateActiveLinkPosition);
-updateActiveLinkPosition();
-      // Fade in the new content
+
+      window.addEventListener("scroll", updateActiveLinkPosition);
+      window.addEventListener("resize", updateActiveLinkPosition);
+      updateActiveLinkPosition();
       mainContent.style.opacity = 1;
     }, 500); // 1s matches the CSS transition duration
   });
