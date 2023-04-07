@@ -7,8 +7,8 @@ const contentMap = {
         <div class="github-card" data-github="nethrose" data-width="400" data-height="318" data-theme="medium"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
       </div>
-      <div class="linkedin-widget">
-        <iframe src="linkedin-badge.html" width="100%" height="300" frameborder="0"></iframe>
+      <div class="pdf-widget">
+        <iframe src="https://drive.google.com/file/d/1a5NZHkTW_YsSrGCTynd2_9XUquK-x10F/preview" width="100%" height="300" frameborder="0"></iframe>
       </div>
     </div>
   `,
