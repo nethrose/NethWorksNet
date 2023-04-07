@@ -1,1 +1,6 @@
-[]
+[
+  {
+    "title": "Blog Post Title - {{date}}",
+    "filename": "2023-04-07-AI-Assisted-Portfolio.html"
+  }
+]
