@@ -108,7 +108,7 @@ links.forEach(function (link) {
     mainContent.style.opacity = 0;
 
     setTimeout(() => {
-      insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")], () => {
+      insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")](), () => {
         if (this.getAttribute("data-tab") === "about") {
           if (window.IN && window.IN.parse) {
             window.IN.parse(mainContent);
