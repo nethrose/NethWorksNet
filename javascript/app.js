@@ -41,7 +41,7 @@ const contentMap = {
   blog: async () => {
     const blogPosts = await loadBlogPosts();
     return `
-      <div class="content-section">
+      <div class="content-section rendered-content">
         <h2>Blog</h2>
         <div id="blog-posts">
           ${blogPosts}
@@ -50,12 +50,12 @@ const contentMap = {
       </div>`;
   },
   content: `
-    <div class="content-section">
+    <div class="content-section rendered-content">
       <h2>Content</h2>
       <p>Content for Content section goes here.</p>
     </div>`,
   contact: `
-    <div class="content-section">
+    <div class="content-section rendered-content">
       <h2>Contact</h2>
       <p>Content for Contact section goes here.</p>
     </div>`,
