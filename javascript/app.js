@@ -5,7 +5,7 @@ const links = document.querySelectorAll("nav a");
 const navBar = document.querySelector(".navbar");
 
 const contentMap = {
-  about: `
+  about: () => `
     <div class="content-section profile-container">
       <div class="github-widget">
         <div class="github-card" data-github="nethrose" data-width="400" data-height="318" data-theme="medium"></div>
@@ -17,12 +17,12 @@ const contentMap = {
     </div>
   `,
   blog: async () => await blogContent(),
-  content: `
+  content: () => `
     <div class="content-section rendered-content">
       <h2>Content</h2>
       <p>Content for Content section goes here.</p>
     </div>`,
-  contact: `
+  contact: () => `
     <div class="content-section rendered-content">
       <h2>Contact</h2>
       <p>Content for Contact section goes here.</p>
