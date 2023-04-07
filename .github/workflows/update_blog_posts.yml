@@ -9,30 +9,30 @@ jobs:
   update_posts:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14
-    - name: Install dependencies
-      run: npm ci
-      working-directory: ./blog
-    - name: Update posts
-      run: |
-        NEW_POSTS=$(git diff HEAD^ HEAD --name-status --diff-filter=A | grep -E '^A\s+blog/[0-9]{4}-[0-9]{2}-[0-9]{2}.*' | awk '{print $2}')
-        if [ -n "$NEW_POSTS" ]; then
-          echo "New posts found: $NEW_POSTS"
-          for POST in $NEW_POSTS; do
-            node update_posts.js $POST
-          done
-        else
-          echo "No new posts found"
-        fi
-    - name: Commit changes
-      run: |
-        git config user.name "GitHub Actions Bot"
-        git config user.email "<your_email>"
-        git add .
-        git commit -m "Update posts.json with new posts" || exit 0
-        git push
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Update posts
+        run: |
+          NEW_POSTS=$(git diff HEAD^ HEAD --name-status --diff-filter=A | grep -E '^A\s+blog/[0-9]{4}-[0-9]{2}-[0-9]{2}.*' | awk '{print $2}')
+          if [ -n "$NEW_POSTS" ]; then
+            echo "New posts found: $NEW_POSTS"
+            for POST in $NEW_POSTS; do
+              node scripts/update_posts.js $POST
+            done
+          else
+            echo "No new posts found"
+          fi
+
+      - name: Commit changes
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<your_email>"
+          git add .
+          git commit -m "Update posts.json with new posts" || exit 0
+          git push
