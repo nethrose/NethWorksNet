@@ -1,28 +1,28 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
-const [_, __, newPost] = process.argv;
-const postsJsonPath = path.resolve(__dirname, "./blog/posts.json");
+const postsPath = path.join(__dirname, '..', 'blog');
+const postsJsonPath = path.join(__dirname, '..', 'posts.json');
 
-fs.readFile(postsJsonPath, "utf-8", (err, data) => {
-  if (err) {
-    console.error(`Error reading posts.json: ${err}`);
-    process.exit(1);
-  }
+// Read the existing posts JSON file
+const existingPosts = require(postsJsonPath);
 
-  const posts = JSON.parse(data);
+// Get the list of HTML files in the /blog folder
+const blogFiles = fs.readdirSync(postsPath).filter((file) => file.endsWith('.html'));
 
-  const postFilename = path.basename(newPost);
-  if (!posts.includes(postFilename)) {
-    posts.push(postFilename);
-    fs.writeFile(postsJsonPath, JSON.stringify(posts, null, 2), (err) => {
-      if (err) {
-        console.error(`Error updating posts.json: ${err}`);
-        process.exit(1);
-      }
-      console.log(`Added ${postFilename} to posts.json`);
-    });
-  } else {
-    console.log(`${postFilename} already exists in posts.json`);
-  }
+const newPosts = blogFiles.map((file) => {
+  const postPath = path.join(postsPath, file);
+  const content = fs.readFileSync(postPath, 'utf-8');
+
+  // Extract the title from the file
+  const titleMatch = content.match(/<h1>(.*?)<\/h1>/);
+  const title = titleMatch ? titleMatch[1] : 'Untitled';
+
+  // Check if the post already exists in the JSON file
+  const existingPost = existingPosts.find((post) => post.filename === file);
+
+  return existingPost ? existingPost : { title, filename: file };
 });
+
+// Write the new posts JSON file
+fs.writeFileSync(postsJsonPath, JSON.stringify(newPosts, null, 2));
