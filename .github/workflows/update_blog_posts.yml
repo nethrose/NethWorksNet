@@ -19,16 +19,22 @@ jobs:
         with:
           node-version: 14
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Update posts
         run: |
-          NEW_POSTS=$(git diff HEAD^ HEAD --name-status --diff-filter=A | grep -E '^A\s+blog/[0-9]{4}-[0-9]{2}-[0-9]{2}.*' | awk '{print $2}')
-          if [ -n "$NEW_POSTS" ]; then
-            echo "New posts found: $NEW_POSTS"
-            for POST in $NEW_POSTS; do
-              node scripts/update_posts.js $POST
-            done
+          # Get the list of files in the /blog folder
+          BLOG_FILES=$(find blog -type f -name "*.html" | sort)
+
+          # Get the list of files in posts.json
+          POSTS_JSON_FILES=$(node -e "const posts = require('./posts.json'); console.log(posts.map(p => p.filename).sort().join('\n'))")
+
+          if [ "$BLOG_FILES" != "$POSTS_JSON_FILES" ]; then
+            echo "Updating posts.json"
+            node scripts/update_posts.js
           else
-            echo "No new posts found"
+            echo "Nothing to change"
           fi
 
       - name: Commit changes
