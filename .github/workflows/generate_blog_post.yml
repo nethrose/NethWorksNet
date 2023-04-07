@@ -1,0 +1,46 @@
+name: Generate Blog Post
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: 'Blog post title'
+        required: true
+
+jobs:
+  generate_post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Create new blog post
+        env:
+          TITLE: ${{ github.event.inputs.title }}
+        run: |
+          DATE=$(date +'%Y-%m-%d')
+          FILENAME="blog/$DATE-$TITLE.html"
+          if [ ! -f "$FILENAME" ]; then
+            mkdir -p blog
+            cat .github/templates/blog_post_template.html \
+              | sed "s/{{title}}/$TITLE/g" \
+              | sed "s/{{content}}/<!-- Add your content here -->/g" \
+              > $FILENAME
+            echo "Created new blog post: $FILENAME"
+          else
+            echo "Blog post with the same title already exists: $FILENAME"
+            exit 1
+          fi
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<your_email>"
+          git add .
+          git commit -m "Create new blog post: ${{ github.event.inputs.title }}" || exit 0
+          git push
