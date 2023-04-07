@@ -155,7 +155,7 @@ section:target {
 }
 
 .github-widget,
-.linkedin-widget {
+.pdf-widget {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
   border-radius: 1rem;
   overflow: hidden;
