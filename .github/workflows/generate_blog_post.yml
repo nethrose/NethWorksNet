@@ -24,7 +24,8 @@ jobs:
           TITLE: ${{ github.event.inputs.title }}
         run: |
           DATE=$(date +'%Y-%m-%d')
-          FILENAME="blog/$DATE-$TITLE.html"
+          SANITIZED_TITLE=$(echo "$TITLE" | sed 's/[^a-zA-Z0-9 ]//g' | sed 's/ /-/g')
+          FILENAME="blog/$DATE-$SANITIZED_TITLE.html"
           if [ ! -f "$FILENAME" ]; then
             mkdir -p blog
             cat .github/templates/blog_post_template.html \
@@ -37,6 +38,7 @@ jobs:
             echo "Blog post with the same title already exists: $FILENAME"
             exit 1
           fi
+
       - name: Commit and push changes
         env:
           ACTIONS_BOT_PAT: ${{ secrets.ACTIONS_BOT_PAT }}
