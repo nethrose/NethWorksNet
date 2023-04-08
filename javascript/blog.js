@@ -5,18 +5,18 @@ export async function loadBlogPosts() {
     const blogPostFiles = await response.json();
 
     blogPostFiles.sort((a, b) => {
-      const dateA = a.split("-").splice(0, 3).join("-");
-      const dateB = b.split("-").splice(0, 3).join("-");
+      const dateA = a.filename.split("-").splice(0, 3).join("-");
+      const dateB = b.filename.split("-").splice(0, 3).join("-");
       return new Date(dateB) - new Date(dateA);
     });
 
     let blogPosts = '';
 
-    for (const file of blogPostFiles) {
+    for (const fileObj of blogPostFiles) {
+      const file = fileObj.filename;
       const response = await fetch(`/blog/${file}`);
       const content = await response.text();
-      const titleMatch = content.match(/<h2>(.*?)<\/h2>/) || [];
-      const title = titleMatch[1] || 'Untitled';
+      const title = content.match(/<h2>(.*?)<\/h2>/)[1];
 
       blogPosts += `<a href="#" class="blog-post-link" data-post="${file}">${title}</a><br>`;
     }
@@ -24,6 +24,7 @@ export async function loadBlogPosts() {
     resolve(blogPosts);
   });
 }
+
 
 export const blogContent = async () => {
   const blogPosts = await loadBlogPosts();
