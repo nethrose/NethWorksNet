@@ -49,11 +49,11 @@ jobs:
           git push
       
       - name: Print push event debug information
-          env:
-            ACTIONS_BOT_PAT: ${{ secrets.ACTIONS_BOT_PAT }}
-          run: |
-            echo "Latest commit SHA: $(git rev-parse HEAD)"
-            echo "GitHub ref: ${{ github.ref }}"
-            echo "GitHub actor: ${{ github.actor }}"
-            echo "GitHub event name: ${{ github.event_name }}"
+        env:
+          ACTIONS_BOT_PAT: ${{ secrets.ACTIONS_BOT_PAT }}
+        run: |
+          echo "Latest commit SHA: $(git rev-parse HEAD)"
+          echo "GitHub ref: ${{ github.ref }}"
+          echo "GitHub actor: ${{ github.actor }}"
+          echo "GitHub event name: ${{ github.event_name }}"
 
