@@ -13,9 +13,10 @@ export async function loadBlogPosts() {
     let blogPosts = '';
 
     for (const file of blogPostFiles) {
-      const response = await fetch(`blog/${file}`);
+      const response = await fetch(`/blog/${file}`);
       const content = await response.text();
-      const title = content.match(/<h2>(.*?)<\/h2>/)[1];
+      const titleMatch = content.match(/<h2>(.*?)<\/h2>/) || [];
+      const title = titleMatch[1] || 'Untitled';
 
       blogPosts += `<a href="#" class="blog-post-link" data-post="${file}">${title}</a><br>`;
     }
