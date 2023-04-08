@@ -1,1 +1,6 @@
-[]
+[
+  {
+    "title": "Big Fat Test - {{date}}",
+    "filename": "2023-04-08-test-blog-post.html"
+  }
+]
