@@ -28,6 +28,7 @@ jobs:
           if [ ! -f "$FILENAME" ]; then
             mkdir -p blog
             cat .github/templates/blog_post_template.html \
+              | sed "s/{{date}}/$DATE/g" \
               | sed "s/{{title}}/$TITLE/g" \
               | sed "s/{{content}}/<!-- Add your content here -->/g" \
               > $FILENAME
@@ -36,7 +37,6 @@ jobs:
             echo "Blog post with the same title already exists: $FILENAME"
             exit 1
           fi
-
       - name: Commit and push changes
         run: |
           git config user.name "GitHub Actions Bot"
