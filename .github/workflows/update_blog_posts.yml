@@ -1,6 +1,10 @@
 name: Update posts.json
 
 on:
+  workflow_run:
+    workflows: ["Generate Blog Post"]
+    types:
+      - completed
   push:
     paths:
       - "blog/*"
@@ -40,3 +44,4 @@ jobs:
           git add .
           git commit -m "Update posts.json with new posts" || exit 0
           git push
+          
