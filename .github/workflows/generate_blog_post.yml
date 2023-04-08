@@ -38,9 +38,13 @@ jobs:
             exit 1
           fi
       - name: Commit and push changes
+        env:
+          ACTIONS_BOT_PAT: ${{ secrets.ACTIONS_BOT_PAT }}
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<your_email>"
           git add .
           git commit -m "Create new blog post: ${{ github.event.inputs.title }}" || exit 0
+          git remote set-url origin https://${{ env.ACTIONS_BOT_PAT }}@github.com/${{ github.repository }}
           git push
+
