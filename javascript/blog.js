@@ -17,7 +17,7 @@ export async function loadBlogPosts() {
       const file = fileObj.filename;
       const response = await fetch(`/blog/${file}`);
       const content = await response.text();
-      const titleMatch = content.match(/<h1>(.*?)<\/h1>/);
+      const titleMatch = content.match(/^#\s+(.+)$/m);
       if (titleMatch) {
         const title = titleMatch[1];
         blogPosts += `<a href="#" class="blog-post-link" data-post="${file}">${title}</a><br>`;
@@ -27,6 +27,7 @@ export async function loadBlogPosts() {
     resolve(blogPosts);
   });
 }
+
 
 
 export const blogContent = async () => {
