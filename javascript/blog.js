@@ -45,6 +45,7 @@ export const blogContent = async () => {
 
 export async function handleBlogPostClick(event) {
   event.preventDefault();
+  event.stopPropagation(); // Add this line to stop event propagation
   const postFileName = event.target.getAttribute("data-post");
 
   const waitForMarked = (callback) => {
