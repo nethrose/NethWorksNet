@@ -26,7 +26,7 @@ jobs:
       - name: Update posts
         run: |
           # Get the list of files in the /blog folder
-          BLOG_FILES=$(find blog -type f -name "*.html" | sort)
+          BLOG_FILES=$(find blog -type f -name "*.md" | sort)
 
           # Get the list of files in posts.json
           POSTS_JSON_FILES=$(node -e "const fs = require('fs'); const path = require('path'); const postsJsonPath = path.join(__dirname, 'blog', 'posts.json'); const posts = JSON.parse(fs.readFileSync(postsJsonPath, 'utf8')); console.log(posts.map(p => p.filename).sort().join('\n'))")
