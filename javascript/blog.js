@@ -1,5 +1,4 @@
 // blog.js
-import marked from 'marked';
 
 export async function loadBlogPosts() {
   return new Promise(async (resolve) => {
