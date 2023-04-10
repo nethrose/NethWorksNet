@@ -62,6 +62,3 @@ export async function handleBlogPostClick(event) {
     document.getElementById("blog-post-content").innerHTML = htmlContent;
   });
 }
-
-
-
