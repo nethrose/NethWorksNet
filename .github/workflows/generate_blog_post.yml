@@ -28,9 +28,10 @@ jobs:
           FILENAME="blog/$DATE-$SANITIZED_TITLE.md"
           if [ ! -f "$FILENAME" ]; then
             mkdir -p blog
+            ESCAPED_TITLE=$(printf '%s\n' "$TITLE" | sed -e 's/[][\/.^$*]/\\&/g')
             cat .github/templates/blog_post_template.md \
               | sed "s/{{date}}/$DATE/g" \
-              | sed "s/{{title}}/$TITLE/g" \
+              | sed "s/{{title}}/$ESCAPED_TITLE/g" \
               | sed "s/{{content}}/<!-- Add your content here -->/g" \
               > $FILENAME
             echo "Created new blog post: $FILENAME"
