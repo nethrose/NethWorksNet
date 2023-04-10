@@ -1,4 +1,6 @@
 // blog.js
+import marked from 'https://cdn.skypack.dev/marked';
+
 export async function loadBlogPosts() {
   return new Promise(async (resolve) => {
     const response = await fetch("/blog/posts.json");
