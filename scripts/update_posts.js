@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const matter = require('gray-matter'); 
 
 const postsPath = path.join(__dirname, '..', 'blog');
 const postsJsonPath = path.join(__dirname, '..', 'blog', 'posts.json');
@@ -8,11 +9,12 @@ const postsJsonPath = path.join(__dirname, '..', 'blog', 'posts.json');
 const existingPosts = require(postsJsonPath);
 
 // Get the list of HTML files in the /blog folder
-const blogFiles = fs.readdirSync(postsPath).filter((file) => file.endsWith('.html'));
+const blogFiles = fs.readdirSync(postsPath).filter((file) => file.endsWith('.md'));
 
 const newPosts = blogFiles.map((file) => {
   const postPath = path.join(postsPath, file);
   const content = fs.readFileSync(postPath, 'utf-8');
+  const { data } = matter(fileContent);
 
   // Extract the title from the file
   const titleMatch = content.match(/<h1>(.*?)<\/h1>/);
