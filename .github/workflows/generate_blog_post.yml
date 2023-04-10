@@ -25,10 +25,10 @@ jobs:
         run: |
           DATE=$(date +'%Y-%m-%d')
           SANITIZED_TITLE=$(echo "$TITLE" | sed 's/[^a-zA-Z0-9 ]//g' | sed 's/ /-/g')
-          FILENAME="blog/$DATE-$SANITIZED_TITLE.html"
+          FILENAME="blog/$DATE-$SANITIZED_TITLE.md"
           if [ ! -f "$FILENAME" ]; then
             mkdir -p blog
-            cat .github/templates/blog_post_template.html \
+            cat .github/templates/blog_post_template.md \
               | sed "s/{{date}}/$DATE/g" \
               | sed "s/{{title}}/$TITLE/g" \
               | sed "s/{{content}}/<!-- Add your content here -->/g" \
@@ -38,7 +38,6 @@ jobs:
             echo "Blog post with the same title already exists: $FILENAME"
             exit 1
           fi
-
       - name: Commit and push changes
         env:
           ACTIONS_BOT_PAT: ${{ secrets.ACTIONS_BOT_PAT }}
