@@ -14,7 +14,7 @@ const blogFiles = fs.readdirSync(postsPath).filter((file) => file.endsWith('.md'
 const newPosts = blogFiles.map((file) => {
   const postPath = path.join(postsPath, file);
   const content = fs.readFileSync(postPath, 'utf-8');
-  const { data } = matter(fileContent);
+  const { data } = matter(content);
 
   // Extract the title from the file
   const titleMatch = content.match(/<h1>(.*?)<\/h1>/);
