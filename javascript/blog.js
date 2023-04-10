@@ -5,7 +5,7 @@ export async function loadBlogPosts() {
     const blogPostFiles = await response.json();
     const mdBlogPostFiles = blogPostFiles.filter(fileObj => fileObj.filename.endsWith('.md'));
 
-    blogPostFiles.sort((a, b) => {
+    mdBlogPostFiles.sort((a, b) => {
       const dateA = a.filename.split("-").splice(0, 3).join("-");
       const dateB = b.filename.split("-").splice(0, 3).join("-");
       return new Date(dateB) - new Date(dateA);
@@ -13,7 +13,7 @@ export async function loadBlogPosts() {
 
     let blogPosts = '';
 
-    for (const fileObj of blogPostFiles) {
+    for (const fileObj of mdBlogPostFiles) {
       const file = fileObj.filename;
       const response = await fetch(`/blog/${file}`);
       const content = await response.text();
@@ -27,6 +27,7 @@ export async function loadBlogPosts() {
     resolve(blogPosts);
   });
 }
+
 
 export const blogContent = async () => {
   const blogPosts = await loadBlogPosts();
