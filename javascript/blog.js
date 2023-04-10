@@ -3,6 +3,7 @@ export async function loadBlogPosts() {
   return new Promise(async (resolve) => {
     const response = await fetch("/blog/posts.json");
     const blogPostFiles = await response.json();
+    const mdBlogPostFiles = blogPostFiles.filter(fileObj => fileObj.filename.endsWith('.md'));
 
     blogPostFiles.sort((a, b) => {
       const dateA = a.filename.split("-").splice(0, 3).join("-");
@@ -44,5 +45,6 @@ export async function handleBlogPostClick(event) {
   const postFileName = event.target.getAttribute("data-post");
   const response = await fetch(`/blog/${postFileName}`);
   const content = await response.text();
+  const htmlContent = marked(content);
   document.getElementById("blog-post-content").innerHTML = content;
 }
