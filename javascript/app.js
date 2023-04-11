@@ -107,24 +107,25 @@ links.forEach(function (link) {
     const mainContent = document.getElementById("main-content");
     mainContent.style.opacity = 0;
 
-setTimeout(() => {
-  insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")](), () => {
-    if (this.getAttribute("data-tab") === "blog") {
-      attachBlogPostClickListeners();
-    }
-  });
+    setTimeout(() => {
+      insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")](), () => {
+        if (this.getAttribute("data-tab") === "blog") {
+          attachBlogPostClickListeners();
+        }
+      });
 
-  updateActiveLinkPosition();
-  mainContent.style.opacity = 1;
-}, 500); // 1s matches the CSS transition duration
-    
+      updateActiveLinkPosition();
+      mainContent.style.opacity = 1;
+    }, 500); // 1s matches the CSS transition duration
+  });
+});
+
 function attachBlogPostClickListeners() {
   const blogPostLinks = document.querySelectorAll(".blog-post-link");
   blogPostLinks.forEach((link) => {
     link.addEventListener("click", handleBlogPostClick);
   });
 }
-
 
 // Move the event listeners back to the end of the file
 window.addEventListener("scroll", updateActiveLinkPosition);
