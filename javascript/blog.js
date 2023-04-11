@@ -49,8 +49,9 @@ export const blogContent = async () => {
     link.addEventListener("click", handleBlogPostClick);
   });
 
-  return tempDiv.innerHTML;
+  return tempDiv.firstElementChild; // Return the first child element instead of the HTML string
 };
+
 
 
 export async function handleBlogPostClick(event) {
