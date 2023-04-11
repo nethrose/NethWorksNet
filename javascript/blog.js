@@ -63,6 +63,8 @@ export async function handleBlogPostClick(event) {
     const response = await fetch(`/blog/${postFileName}`);
     const content = await response.text();
     const htmlContent = marked(content);
-    updateMainContent(htmlContent);
+    const blogPostContent = document.getElementById("blog-post-content");
+    blogPostContent.innerHTML = htmlContent;
   });
 }
+
