@@ -129,7 +129,7 @@ function attachBlogPostClickListeners() {
   });
 }
 
-function updateMainContent(content) {
+export function updateMainContent(content) {
   const mainContent = document.getElementById("main-content");
   mainContent.style.opacity = 0;
 
