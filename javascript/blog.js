@@ -49,18 +49,16 @@ export async function handleBlogPostClick(event) {
   event.preventDefault();
   const postFileName = event.target.getAttribute("data-post");
 
-  const waitForMarked = (callback) => {
-    if (typeof marked === 'function') {
-      callback();
-    } else {
-      setTimeout(() => waitForMarked(callback), 100);
+  const loadMarked = async () => {
+    if (typeof marked === 'undefined') {
+      await import('https://unpkg.com/marked/marked.min.js');
     }
   };
 
-  waitForMarked(async () => {
-    const response = await fetch(`/blog/${postFileName}`);
-    const content = await response.text();
-    const htmlContent = marked(content);
-    document.getElementById("blog-post-content").innerHTML = htmlContent;
-  });
+  await loadMarked();
+
+  const response = await fetch(`/blog/${postFileName}`);
+  const content = await response.text();
+  const htmlContent = marked(content);
+  document.getElementById("blog-post-content").innerHTML = htmlContent;
 }
