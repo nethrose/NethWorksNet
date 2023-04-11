@@ -108,19 +108,21 @@ links.forEach(function (link) {
           if (window.IN && window.IN.parse) {
             window.IN.parse(mainContent);
           }
-        } else if (this.getAttribute("data-tab") === "blog") {
-          const blogPostLinks = document.querySelectorAll(".blog-post-link");
-          blogPostLinks.forEach((blogPostLink) => {
-            blogPostLink.addEventListener("click", handleBlogPostClick);
-          });
         }
-      });
-
-      window.addEventListener("scroll", updateActiveLinkPosition);
-      window.addEventListener("resize", updateActiveLinkPosition);
-      updateActiveLinkPosition();
-      mainContent.style.opacity = 1;
-    }, 500); // 1s matches the CSS transition duration
   });
+
+  updateActiveLinkPosition();
+  mainContent.style.opacity = 1;
+}, 500); // 1s matches the CSS transition duration
 });
 
+// Add the event delegation logic at the end of the app.js file
+document.getElementById("main-content").addEventListener("click", (event) => {
+  if (event.target && event.target.classList.contains("blog-post-link")) {
+    handleBlogPostClick(event);
+  }
+});
+
+// Move the event listeners back to the end of the file
+window.addEventListener("scroll", updateActiveLinkPosition);
+window.addEventListener("resize", updateActiveLinkPosition);
