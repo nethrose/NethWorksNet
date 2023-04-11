@@ -45,7 +45,7 @@ export const blogContent = async () => {
 
 export async function handleBlogPostClick(event) {
   event.preventDefault();
-  const postFileName = event.currentTarget.getAttribute("data-post");
+  const postFileName = event.target.getAttribute("data-post");
 
   const waitForMarked = (callback) => {
     if (typeof marked === 'function') {
