@@ -117,13 +117,6 @@ links.forEach(function (link) {
   });
 });
 
-// Add the event delegation logic at the end of the app.js file
-document.getElementById("main-content").addEventListener("click", (event) => {
-  if (event.target && event.target.classList.contains("blog-post-link")) {
-    handleBlogPostClick(event);
-  }
-});
-
 // Move the event listeners back to the end of the file
 window.addEventListener("scroll", updateActiveLinkPosition);
 window.addEventListener("resize", updateActiveLinkPosition);
