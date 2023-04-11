@@ -29,8 +29,6 @@ export async function loadBlogPosts() {
   });
 }
 
-
-
 export const blogContent = async () => {
   const blogPosts = await loadBlogPosts();
   const blogContentHTML = `
@@ -44,15 +42,8 @@ export const blogContent = async () => {
 
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = blogContentHTML;
-  const blogPostLinks = tempDiv.querySelectorAll(".blog-post-link");
-  blogPostLinks.forEach((link) => {
-    link.addEventListener("click", handleBlogPostClick);
-  });
-
   return tempDiv.firstElementChild; // Return the first child element instead of the HTML string
 };
-
-
 
 export async function handleBlogPostClick(event) {
   event.preventDefault();
