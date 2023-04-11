@@ -50,6 +50,7 @@ export const blogContent = async () => {
 export async function handleBlogPostClick(event) {
   event.preventDefault();
   const postFileName = event.target.getAttribute("data-post");
+  console.log('Clicked post:', postFileName);
 
   const waitForMarked = (callback) => {
     if (typeof marked === 'function') {
@@ -59,12 +60,21 @@ export async function handleBlogPostClick(event) {
     }
   };
 
-  waitForMarked(async () => {
-    const response = await fetch(`/blog/${postFileName}`);
-    const content = await response.text();
-    const htmlContent = marked(content);
-    const blogPostContent = document.getElementById("blog-post-content");
-    blogPostContent.innerHTML = htmlContent;
-  });
+  try {
+    waitForMarked(async () => {
+      const response = await fetch(`/blog/${postFileName}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const content = await response.text();
+      console.log('Fetched content:', content);
+      const htmlContent = marked(content);
+      console.log('HTML content:', htmlContent);
+      const blogPostContent = document.getElementById("blog-post-content");
+      blogPostContent.innerHTML = htmlContent;
+    });
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }
 
