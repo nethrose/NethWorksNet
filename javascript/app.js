@@ -129,6 +129,16 @@ function attachBlogPostClickListeners() {
   });
 }
 
+function updateMainContent(content) {
+  const mainContent = document.getElementById("main-content");
+  mainContent.style.opacity = 0;
+
+  setTimeout(() => {
+    mainContent.innerHTML = content;
+    mainContent.style.opacity = 1;
+  }, 500); // 1s matches the CSS transition duration
+}
+
 // Move the event listeners back to the end of the file
 window.addEventListener("scroll", updateActiveLinkPosition);
 window.addEventListener("resize", updateActiveLinkPosition);
