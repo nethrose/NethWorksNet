@@ -52,6 +52,10 @@ function insertHTMLAndExecuteScripts(container, htmlOrPromise, callback) {
       container.innerHTML = content;
     }
 
+    if (callback) {
+      callback();
+    }
+
     const scripts = Array.from(container.getElementsByTagName("script"));
 
     scripts.forEach(function (script) {
@@ -62,13 +66,8 @@ function insertHTMLAndExecuteScripts(container, htmlOrPromise, callback) {
       newScript.innerHTML = script.innerHTML;
       script.parentNode.replaceChild(newScript, script);
     });
-
-    if (callback) {
-      callback();
-    }
   });
 }
-
 
 const titleRect = document.querySelector(".header").getBoundingClientRect();
 
@@ -108,20 +107,24 @@ links.forEach(function (link) {
     const mainContent = document.getElementById("main-content");
     mainContent.style.opacity = 0;
 
-    setTimeout(() => {
-      insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")](), () => {
-        if (this.getAttribute("data-tab") === "about") {
-          if (window.IN && window.IN.parse) {
-            window.IN.parse(mainContent);
-          }
-        }
-      });
-
-    updateActiveLinkPosition();
-    mainContent.style.opacity = 1;
-  }, 500); // 1s matches the CSS transition duration
+setTimeout(() => {
+  insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")](), () => {
+    if (this.getAttribute("data-tab") === "blog") {
+      attachBlogPostClickListeners();
+    }
   });
-});
+
+  updateActiveLinkPosition();
+  mainContent.style.opacity = 1;
+}, 500); // 1s matches the CSS transition duration
+    
+function attachBlogPostClickListeners() {
+  const blogPostLinks = document.querySelectorAll(".blog-post-link");
+  blogPostLinks.forEach((link) => {
+    link.addEventListener("click", handleBlogPostClick);
+  });
+}
+
 
 // Move the event listeners back to the end of the file
 window.addEventListener("scroll", updateActiveLinkPosition);
