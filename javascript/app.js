@@ -111,9 +111,10 @@ links.forEach(function (link) {
         }
       });
 
-  updateActiveLinkPosition();
-  mainContent.style.opacity = 1;
-}, 500); // 1s matches the CSS transition duration
+    updateActiveLinkPosition();
+    mainContent.style.opacity = 1;
+  }, 500); // 1s matches the CSS transition duration
+  });
 });
 
 // Add the event delegation logic at the end of the app.js file
