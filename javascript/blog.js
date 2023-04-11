@@ -52,29 +52,29 @@ export async function handleBlogPostClick(event) {
   const postFileName = event.target.getAttribute("data-post");
   console.log('Clicked post:', postFileName);
 
-  const waitForMarked = (callback) => {
-    if (typeof marked === 'function') {
-      callback();
-    } else {
-      setTimeout(() => waitForMarked(callback), 100);
-    }
+  const waitForMarked = () => {
+    return new Promise((resolve) => {
+      if (typeof marked === 'function') {
+        resolve();
+      } else {
+        setTimeout(() => waitForMarked().then(resolve), 100);
+      }
+    });
   };
 
   try {
-    waitForMarked(async () => {
-      const response = await fetch(`/blog/${postFileName}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const content = await response.text();
-      console.log('Fetched content:', content);
-      const htmlContent = marked(content);
-      console.log('HTML content:', htmlContent);
-      const blogPostContent = document.getElementById("blog-post-content");
-      blogPostContent.innerHTML = htmlContent;
-    });
+    await waitForMarked();
+    const response = await fetch(`/blog/${postFileName}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const content = await response.text();
+    console.log('Fetched content:', content);
+    const htmlContent = marked(content);
+    console.log('HTML content:', htmlContent);
+    const blogPostContent = document.getElementById("blog-post-content");
+    blogPostContent.innerHTML = htmlContent;
   } catch (error) {
     console.error('Error:', error);
   }
 }
-
