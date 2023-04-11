@@ -109,7 +109,7 @@ links.forEach(function (link) {
             window.IN.parse(mainContent);
           }
         }
-  });
+      });
 
   updateActiveLinkPosition();
   mainContent.style.opacity = 1;
