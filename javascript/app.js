@@ -44,9 +44,14 @@ function updateActiveLinkPosition() {
 }
 
 function insertHTMLAndExecuteScripts(container, htmlOrPromise, callback) {
-  Promise.resolve(htmlOrPromise).then((html) => {
-    container.innerHTML = html;
-  
+  Promise.resolve(htmlOrPromise).then((content) => {
+    if (content instanceof HTMLElement) {
+      container.innerHTML = '';
+      container.appendChild(content);
+    } else {
+      container.innerHTML = content;
+    }
+
     const scripts = Array.from(container.getElementsByTagName("script"));
 
     scripts.forEach(function (script) {
@@ -63,6 +68,7 @@ function insertHTMLAndExecuteScripts(container, htmlOrPromise, callback) {
     }
   });
 }
+
 
 const titleRect = document.querySelector(".header").getBoundingClientRect();
 
