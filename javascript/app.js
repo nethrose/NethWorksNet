@@ -121,9 +121,11 @@ links.forEach(function (link) {
 });
 
 function attachBlogPostClickListeners() {
-  const blogPostLinks = document.querySelectorAll(".blog-post-link");
-  blogPostLinks.forEach((link) => {
-    link.addEventListener("click", handleBlogPostClick);
+  const blogPostsContainer = document.getElementById("blog-posts");
+  blogPostsContainer.addEventListener("click", (event) => {
+    if (event.target.classList.contains("blog-post-link")) {
+      handleBlogPostClick(event);
+    }
   });
 }
 
