@@ -33,7 +33,7 @@ export async function loadBlogPosts() {
 
 export const blogContent = async () => {
   const blogPosts = await loadBlogPosts();
-  return `
+  const blogContentHTML = `
     <div class="content-section rendered-content">
       <h2>Blog</h2>
       <div id="blog-posts">
@@ -41,7 +41,17 @@ export const blogContent = async () => {
       </div>
       <div id="blog-post-content"></div>
     </div>`;
+
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = blogContentHTML;
+  const blogPostLinks = tempDiv.querySelectorAll(".blog-post-link");
+  blogPostLinks.forEach((link) => {
+    link.addEventListener("click", handleBlogPostClick);
+  });
+
+  return tempDiv.innerHTML;
 };
+
 
 export async function handleBlogPostClick(event) {
   event.preventDefault();
