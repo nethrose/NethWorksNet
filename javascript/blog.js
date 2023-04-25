@@ -24,7 +24,7 @@ export async function loadBlogPosts() {
       }
     }
 
-    return(blogPosts);
+    resolve(blogPosts);
   });
 }
 
