@@ -47,9 +47,9 @@ export const blogContent = async () => {
   return tempDiv.firstElementChild; // Return the first child element instead of the HTML string
 };
 
-export async function handleBlogPostClick(event, blogPostLink) {
+export async function handleBlogPostClick(event) {
   event.preventDefault();
-  const postFileName = blogPostLink.getAttribute("data-post");
+  const postFileName = event.target.getAttribute("data-post");
   console.log('Clicked post:', postFileName);
 
   const waitForMarked = () => {
@@ -74,7 +74,11 @@ export async function handleBlogPostClick(event, blogPostLink) {
     console.log('HTML content:', htmlContent);
     const blogPostContent = document.getElementById("blog-post-content");
     blogPostContent.innerHTML = htmlContent;
+
+    // Scroll to the blog post content
+    blogPostContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (error) {
     console.error('Error:', error);
   }
 }
+
