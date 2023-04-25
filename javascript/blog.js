@@ -1,9 +1,10 @@
 // blog.js
 
 export async function loadBlogPosts() {
-  const response = await fetch("/blog/posts.json");
-  const blogPostFiles = await response.json();
-  const mdBlogPostFiles = blogPostFiles.filter(fileObj => fileObj.filename.endsWith('.md'));
+  return new Promise(async (resolve) => {
+    const response = await fetch("/blog/posts.json");
+    const blogPostFiles = await response.json();
+    const mdBlogPostFiles = blogPostFiles.filter(fileObj => fileObj.filename.endsWith('.md'));
 
     mdBlogPostFiles.sort((a, b) => {
       const dateA = a.filename.split("-").splice(0, 3).join("-");
