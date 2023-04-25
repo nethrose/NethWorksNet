@@ -55,12 +55,8 @@ function insertHTMLAndExecuteScripts(container, htmlOrPromise, callback) {
     const scripts = Array.from(container.getElementsByTagName("script"));
 
     scripts.forEach(function (script) {
-      const newScript = document.createElement("script");
-      Array.from(script.attributes).forEach(function (attr) {
-        newScript.setAttribute(attr.name, attr.value);
-      });
-      newScript.innerHTML = script.innerHTML;
-      script.parentNode.replaceChild(newScript, script);
+      eval(script.innerHTML);
+      script.parentNode.removeChild(script);
     });
 
     if (callback) {
@@ -68,7 +64,6 @@ function insertHTMLAndExecuteScripts(container, htmlOrPromise, callback) {
     }
   });
 }
-
 
 const titleRect = document.querySelector(".header").getBoundingClientRect();
 
