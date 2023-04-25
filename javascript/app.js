@@ -109,9 +109,6 @@ links.forEach(function (link) {
 
     setTimeout(() => {
       insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")](), () => {
-        if (this.getAttribute("data-tab") === "blog") {
-          attachBlogPostClickListeners();
-        }
       });
 
       updateActiveLinkPosition();
