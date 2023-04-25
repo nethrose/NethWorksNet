@@ -123,11 +123,13 @@ links.forEach(function (link) {
 function attachBlogPostClickListeners() {
   const blogPostsContainer = document.getElementById("blog-posts");
   blogPostsContainer.addEventListener("click", (event) => {
-    if (event.target.classList.contains("blog-post-link")) {
-      handleBlogPostClick(event);
+    const blogPostLink = event.target.closest(".blog-post-link");
+    if (blogPostLink) {
+      handleBlogPostClick(event, blogPostLink);
     }
   });
 }
+
 
 export function updateMainContent(content) {
   const mainContent = document.getElementById("main-content");
