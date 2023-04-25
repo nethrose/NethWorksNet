@@ -40,47 +40,42 @@ export const blogContent = async () => {
   return blogPostsHTML;
 }
 
+function waitForMarked(callback) {
+  if (typeof marked === 'function') {
+    callback();
+  } else {
+    setTimeout(() => waitForMarked(callback), 100);
+  }
+}
 
 export async function handleBlogPostClick(event) {
   event.preventDefault();
   const postFileName = event.target.getAttribute("data-post");
   console.log('Clicked post:', postFileName);
 
-  const waitForMarked = () => {
-    return new Promise((resolve) => {
-      const checkMarked = () => {
-        if (typeof marked === 'function') {
-          resolve();
-        } else {
-          setTimeout(checkMarked, 100);
-        }
-      };
-      checkMarked();
-    });
-  };
+  waitForMarked(async () => {
+    try {
+      const response = await fetch(`/blog/${postFileName}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const content = await response.text();
+      console.log('Fetched content:', content);
+      const htmlContent = marked(content);
+      console.log('HTML content:', htmlContent);
 
-  try {
-    await waitForMarked();
-    const response = await fetch(`/blog/${postFileName}`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const mainContent = document.getElementById("main-content");
+      mainContent.style.opacity = 0;
+
+      setTimeout(() => {
+        mainContent.innerHTML = `<div class="rendered-content">${htmlContent}</div>`;
+        mainContent.style.opacity = 1;
+      }, 500);
+
+    } catch (error) {
+      console.error('Error:', error);
     }
-    const content = await response.text();
-    console.log('Fetched content:', content);
-    const htmlContent = marked(content);
-    console.log('HTML content:', htmlContent);
-
-    const mainContent = document.getElementById("main-content");
-    mainContent.style.opacity = 0;
-
-    setTimeout(() => {
-      mainContent.innerHTML = `<div class="rendered-content">${htmlContent}</div>`;
-      mainContent.style.opacity = 1;
-    }, 500);
-
-  } catch (error) {
-    console.error('Error:', error);
-  }
+  });
 }
 
 export function attachBlogPostClickListeners() {
