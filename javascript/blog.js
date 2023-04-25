@@ -33,16 +33,15 @@ export async function loadBlogPosts() {
 
 export const blogContent = async () => {
   const blogPosts = await loadBlogPosts();
-   const blogPostsHTML = `
+  const blogPostsHTML = `
     <div class="content-section rendered-content">
       ${blogPosts}
     </div>
   `;
 
-  attachBlogPostClickListeners();
-
   return blogPostsHTML;
 }
+
 
 export async function handleBlogPostClick(event) {
   event.preventDefault();
