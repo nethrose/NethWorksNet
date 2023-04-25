@@ -53,14 +53,17 @@ export async function handleBlogPostClick(event) {
   console.log('Clicked post:', postFileName);
 
   const waitForMarked = () => {
-    return new Promise((resolve) => {
+  return new Promise((resolve) => {
+    const checkMarked = () => {
       if (typeof marked === 'function') {
         resolve();
       } else {
-        setTimeout(() => waitForMarked().then(resolve), 100);
+        setTimeout(checkMarked, 100);
       }
-    });
-  };
+    };
+    checkMarked();
+  });
+};
 
   try {
     await waitForMarked();
