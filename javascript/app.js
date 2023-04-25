@@ -97,7 +97,7 @@ links.forEach(function (link) {
     const linkRect = this.getBoundingClientRect();
     const header = document.querySelector(".header");
     const titleCenter = header.offsetLeft + header.offsetWidth / 2;
-        const y = titleRect.bottom + 0.2;
+    const y = titleRect.bottom + 0.2;
     const dy = y - linkRect.top;
 
     this.style.top = `${linkRect.top + dy - (this.offsetHeight / 2)}px`;
@@ -115,20 +115,11 @@ links.forEach(function (link) {
         }
       });
 
-  updateActiveLinkPosition();
-  mainContent.style.opacity = 1;
-}, 500); // 1s matches the CSS transition duration
+      updateActiveLinkPosition();
+      mainContent.style.opacity = 1;
+    }, 500); // 1s matches the CSS transition duration
+  });
+});
 
-export function updateMainContent(content) {
-  const mainContent = document.getElementById("main-content");
-  mainContent.style.opacity = 0;
-
-  setTimeout(() => {
-    mainContent.innerHTML = content;
-    mainContent.style.opacity = 1;
-  }, 500); // 1s matches the CSS transition duration
-}
-
-// Move the event listeners back to the end of the file
 window.addEventListener("scroll", updateActiveLinkPosition);
 window.addEventListener("resize", updateActiveLinkPosition);
