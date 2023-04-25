@@ -120,14 +120,13 @@ links.forEach(function (link) {
   });
 });
 
-function attachBlogPostClickListeners() {
-  document.addEventListener("click", (event) => {
-    const blogPostLink = event.target.closest(".blog-post-link");
-    if (blogPostLink) {
-      handleBlogPostClick(event);
-    }
-  });
-}
+document.addEventListener("click", (event) => {
+  const blogPostLink = event.target.closest(".blog-post-link");
+  if (blogPostLink) {
+    handleBlogPostClick(event);
+  }
+});
+
 
 export function updateMainContent(content) {
   const mainContent = document.getElementById("main-content");
