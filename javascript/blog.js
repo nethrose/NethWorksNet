@@ -1,6 +1,6 @@
 // blog.js
 
-import { updateMainContent } from './app.js';
+import { blogContent, handleBlogPostClick } from './app.js';
 
 export async function loadBlogPosts() {
   return new Promise(async (resolve) => {
