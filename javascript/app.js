@@ -125,10 +125,11 @@ function attachBlogPostClickListeners() {
   blogPostsContainer.addEventListener("click", (event) => {
     const blogPostLink = event.target.closest(".blog-post-link");
     if (blogPostLink) {
-      handleBlogPostClick(event, blogPostLink);
+      handleBlogPostClick(event);
     }
   });
 }
+
 
 
 export function updateMainContent(content) {
