@@ -39,7 +39,6 @@ export const blogContent = async () => {
       <div id="blog-posts">
         ${blogPosts}
       </div>
-      <div id="blog-post-content"></div>
     </div>`;
 
   const tempDiv = document.createElement("div");
@@ -53,17 +52,17 @@ export async function handleBlogPostClick(event) {
   console.log('Clicked post:', postFileName);
 
   const waitForMarked = () => {
-  return new Promise((resolve) => {
-    const checkMarked = () => {
-      if (typeof marked === 'function') {
-        resolve();
-      } else {
-        setTimeout(checkMarked, 100);
-      }
-    };
-    checkMarked();
-  });
-};
+    return new Promise((resolve) => {
+      const checkMarked = () => {
+        if (typeof marked === 'function') {
+          resolve();
+        } else {
+          setTimeout(checkMarked, 100);
+        }
+      };
+      checkMarked();
+    });
+  };
 
   try {
     await waitForMarked();
@@ -75,13 +74,11 @@ export async function handleBlogPostClick(event) {
     console.log('Fetched content:', content);
     const htmlContent = marked(content);
     console.log('HTML content:', htmlContent);
-    const blogPostContent = document.getElementById("blog-post-content");
-    blogPostContent.innerHTML = htmlContent;
 
-    // Scroll to the blog post content
-    blogPostContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Update main content with the blog post content
+    updateMainContent(htmlContent);
+
   } catch (error) {
     console.error('Error:', error);
   }
 }
-
