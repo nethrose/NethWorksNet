@@ -75,8 +75,8 @@ export async function handleBlogPostClick(event) {
     const htmlContent = marked(content);
     console.log('HTML content:', htmlContent);
 
-    // Update main content with the blog post content
-    updateMainContent(htmlContent);
+    // Update main content with the blog post content wrapped in a div with class "rendered-content"
+    updateMainContent(`<div class="rendered-content">${htmlContent}</div>`);
 
   } catch (error) {
     console.error('Error:', error);
