@@ -47,9 +47,9 @@ export const blogContent = async () => {
   return tempDiv.firstElementChild; // Return the first child element instead of the HTML string
 };
 
-export async function handleBlogPostClick(event) {
+export async function handleBlogPostClick(event, blogPostLink) {
   event.preventDefault();
-  const postFileName = event.target.getAttribute("data-post");
+  const postFileName = blogPostLink.getAttribute("data-post");
   console.log('Clicked post:', postFileName);
 
   const waitForMarked = () => {
