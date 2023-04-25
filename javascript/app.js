@@ -53,17 +53,38 @@ function insertHTMLAndExecuteScripts(container, htmlOrPromise, callback) {
     }
 
     const scripts = Array.from(container.getElementsByTagName("script"));
+    const externalScripts = scripts.filter(script => script.src);
+    const inlineScripts = scripts.filter(script => !script.src);
 
-    scripts.forEach(function (script) {
-      eval(script.innerHTML);
-      script.parentNode.removeChild(script);
+    const loadExternalScripts = (scripts, onload) => {
+      let loadedScripts = 0;
+      scripts.forEach((script) => {
+        const newScript = document.createElement('script');
+        newScript.src = script.src;
+        newScript.onload = () => {
+          loadedScripts++;
+          if (loadedScripts === scripts.length && onload) {
+            onload();
+          }
+        };
+        script.parentNode.removeChild(script);
+        container.appendChild(newScript);
+      });
+    };
+
+    loadExternalScripts(externalScripts, () => {
+      inlineScripts.forEach(function (script) {
+        eval(script.innerHTML);
+        script.parentNode.removeChild(script);
+      });
+
+      if (callback) {
+        callback();
+      }
     });
-
-    if (callback) {
-      callback();
-    }
   });
 }
+
 
 const titleRect = document.querySelector(".header").getBoundingClientRect();
 
