@@ -70,11 +70,7 @@ export async function handleBlogPostClick(event) {
 
       const mainContent = document.getElementById("main-content");
       mainContent.style.opacity = 0;
-
-      setTimeout(() => {
-        mainContent.innerHTML = `<div class="rendered-content">${htmlContent}</div>`;
-        mainContent.style.opacity = 1;
-      }, 500);
+      mainContent.innerHTML = `<div class="rendered-content">${htmlContent}</div>`;
 
     } catch (error) {
       console.error('Error:', error);
