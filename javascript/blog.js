@@ -42,11 +42,15 @@ export const blogContent = async () => {
 
 function waitForMarked(callback) {
   if (typeof marked === 'function') {
+    console.log('Marked is available, invoking callback');
+    console.log('Testing marked:', marked('# Hello, world!'));
     callback();
   } else {
+    console.log('Marked is not available, retrying in 100ms');
     setTimeout(() => waitForMarked(callback), 100);
   }
 }
+
 
 export async function handleBlogPostClick(event) {
   event.preventDefault();
