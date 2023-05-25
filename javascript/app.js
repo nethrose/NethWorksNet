@@ -148,7 +148,7 @@ document.querySelector('#main-content').addEventListener('click', async function
 
   const response = await fetch(`/blog/${postFileName}`);
   const content = await response.text();
-  const htmlContent = marked.parse(content);
+  const htmlContent = marked.parse(content, {mangle: false, headerIds: false});
 
   const mainContent = document.getElementById('main-content');
   mainContent.innerHTML = `<div class="rendered-content">${htmlContent}</div>`;
