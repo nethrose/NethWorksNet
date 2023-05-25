@@ -27,7 +27,7 @@ const contentMap = {
 function updateActiveLinkPosition() {
   const activeLink = document.querySelector(".nav-link.active");
   if (!activeLink) return;
-  
+
   activeLink.style.transition = "none";
   const titleRect = document.querySelector(".header").getBoundingClientRect();
   const linkRect = activeLink.getBoundingClientRect();
@@ -44,16 +44,7 @@ function updateActiveLinkPosition() {
 }
 
 function insertHTMLAndExecuteScripts(container, htmlOrPromise, callback) {
-  Promise.resolve(htmlOrPromise).then((contentObj) => {
-    let content = '';
-    let callback = null;
-    if (typeof contentObj === 'string') {
-      content = contentObj;
-    } else if (typeof contentObj === 'object') {
-      content = contentObj.content;
-      callback = contentObj.callback;
-    }
-
+  Promise.resolve(htmlOrPromise).then((content) => {
     if (content instanceof HTMLElement) {
       container.innerHTML = '';
       container.appendChild(content);
@@ -135,7 +126,7 @@ links.forEach(function (link) {
 
     const mainContent = document.getElementById("main-content");
     mainContent.style.opacity = 0;
-    
+
     setTimeout(() => {
       insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")]());
 
@@ -143,6 +134,21 @@ links.forEach(function (link) {
       mainContent.style.opacity = 1;
     }, 500); // 1s matches the CSS transition duration
   });
+});
+
+document.querySelector('#main-content').addEventListener('click', async function(event) {
+  if (!event.target.matches('.blog-post-link')) return;
+
+  event.preventDefault();
+
+  const postFileName = event.target.getAttribute('data-post');
+
+  const response = await fetch(`/blog/${postFileName}`);
+  const content = await response.text();
+  const htmlContent = marked(content);
+
+  const mainContent = document.getElementById('main-content');
+  mainContent.innerHTML = `<div class="rendered-content">${htmlContent}</div>`;
 });
 
 window.addEventListener("scroll", updateActiveLinkPosition);
