@@ -1,5 +1,5 @@
 // app.js
-import { loadBlogPosts, blogContent, handleBlogPostClick, attachBlogPostClickListeners } from './blog.js';
+import { loadBlogPosts, blogContent } from './blog.js';
 
 const links = document.querySelectorAll("nav a");
 const navBar = document.querySelector(".navbar");
