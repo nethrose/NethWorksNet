@@ -123,7 +123,8 @@ links.forEach(function (link) {
 
     const mainContent = document.getElementById("main-content");
     mainContent.style.opacity = 0;
-
+    
+    setTimeout(() => {
       insertHTMLAndExecuteScripts(mainContent, contentMap[this.getAttribute("data-tab")]());
 
       updateActiveLinkPosition();
