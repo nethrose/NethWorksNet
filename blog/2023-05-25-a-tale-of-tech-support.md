@@ -16,7 +16,7 @@ In the startup fairy tale, tech support professionals are the unsung heroes. The
 
 ### The Corporate Culture Challenge: Overcoming the IT Crowd Perception
 
-![](https://giphy.com/embed/rcOlpTCkM1GAE)
+![IT](https://giphy.com/embed/rcOlpTCkM1GAE)
 
 These professionals often find themselves bumping their heads against a glass ceiling when looking to advance their careers. 'Misconceptions R Us' could be the internal tagline, creating barriers to career growth. I've witnessed attitudes suggesting, "if your goal was Engineering, you should not have applied for a Support position." This mindset is as widespread as it is damaging. It's like casting aside your loyal support teams after squeezing the value out of them, only to replace them with chatbots and self-service forums. Now, don't get me wrong - a forum is a vital piece of the online community puzzle, but that's a topic for another day.
 
@@ -32,6 +32,6 @@ Tech support isn't just a rung on the career ladder; it's a legitimate career in
 
 Non-traditional tech support professionals face unique challenges but also bring a unique perspective to the tech industry. It's time we acknowledge this value, removing the barriers and misconceptions that stunt their growth. We should redefine tech support as not just a crucial cog in the startup wheel, but as a stepping stone to the wider opportunities the tech industry offers. So, let's acknowledge, honor, and accept the "foot in the door," and the pipeline from Support to Engineering. It's not a loophole to be abused - it's a sign of a healthy, growing company!"
 
-![](https://giphy.com/embed/3krrjoL0vHRaWqwU3k)
+![whew](https://giphy.com/embed/3krrjoL0vHRaWqwU3k)
 
 That was a lot! Or at least, it felt like a lot... Whew!
