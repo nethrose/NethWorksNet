@@ -81,6 +81,10 @@ function insertHTMLAndExecuteScripts(container, htmlOrPromise, callback) {
       if (callback) {
         callback();
       }
+      
+      if (content.callback) {
+        content.callback();
+      }
     });
   });
 }
