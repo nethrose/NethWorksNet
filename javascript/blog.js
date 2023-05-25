@@ -25,7 +25,6 @@ export async function loadBlogPosts() {
       }
     }
 
-    attachBlogPostClickListeners();  // Attach click listeners after blog posts are added to the DOM
     resolve(blogPosts);
   });
 }
@@ -39,7 +38,10 @@ export const blogContent = async () => {
     </div>
   `;
 
-  return blogPostsHTML;
+  return {
+    content: blogPostsHTML,
+    callback: attachBlogPostClickListeners
+  };
 }
 
 function waitForMarked(callback) {
