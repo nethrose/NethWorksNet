@@ -44,7 +44,16 @@ function updateActiveLinkPosition() {
 }
 
 function insertHTMLAndExecuteScripts(container, htmlOrPromise, callback) {
-  Promise.resolve(htmlOrPromise).then((content) => {
+  Promise.resolve(htmlOrPromise).then((contentObj) => {
+    let content = '';
+    let callback = null;
+    if (typeof contentObj === 'string') {
+      content = contentObj;
+    } else if (typeof contentObj === 'object') {
+      content = contentObj.content;
+      callback = contentObj.callback;
+    }
+
     if (content instanceof HTMLElement) {
       container.innerHTML = '';
       container.appendChild(content);
@@ -81,14 +90,13 @@ function insertHTMLAndExecuteScripts(container, htmlOrPromise, callback) {
       if (callback) {
         callback();
       }
-      
+
       if (content.callback) {
         content.callback();
       }
     });
   });
 }
-
 
 const titleRect = document.querySelector(".header").getBoundingClientRect();
 
