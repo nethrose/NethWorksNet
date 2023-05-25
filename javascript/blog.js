@@ -36,14 +36,3 @@ export const blogContent = async () => {
       ${blogPosts}
     </div>
   `;
-
-  return {
-    content: blogPostsHTML,
-    callback: attachBlogPostClickListeners
-  };
-}
-
-export function attachBlogPostClickListeners() {
-  const blogPostLinks = document.querySelectorAll(".blog-post-link");
-  console.log(`Found ${blogPostLinks.length} blog post links`);
-}
