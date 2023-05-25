@@ -53,6 +53,7 @@ function waitForMarked(callback) {
 
 
 export async function handleBlogPostClick(event) {
+  console.log('Blog post link clicked');
   event.preventDefault();
   const postFileName = event.target.getAttribute("data-post");
   console.log('Clicked post:', postFileName);
@@ -80,7 +81,9 @@ export async function handleBlogPostClick(event) {
 
 export function attachBlogPostClickListeners() {
   const blogPostLinks = document.querySelectorAll(".blog-post-link");
+  console.log(`Found ${blogPostLinks.length} blog post links`); 
   blogPostLinks.forEach((link) => {
+    console.log(`Attaching event listener to ${link}`); 
     link.addEventListener("click", handleBlogPostClick);
   });
 }
