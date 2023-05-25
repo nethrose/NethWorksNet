@@ -36,3 +36,5 @@ export const blogContent = async () => {
       ${blogPosts}
     </div>
   `;
+  return blogPostsHTML;
+}
