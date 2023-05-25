@@ -1,4 +1,6 @@
 // app.js
+const marked = window.marked;
+
 import { loadBlogPosts, blogContent } from './blog.js';
 
 const links = document.querySelectorAll("nav a");
