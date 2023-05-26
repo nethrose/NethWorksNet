@@ -3,6 +3,13 @@
   <head>
     <meta charset='UTF-8'/>
     <title>Neth Works Net</title>
+    <script src="./javascript/elastic-apm-rum.umd.min.js" crossorigin></script>
+    <script>
+      elasticApm.init({
+        serviceName: 'NethWorksNet',
+        serverUrl: 'https://6e47d98983384965a86efd11f91bb359.fleet.us-west1.gcp.cloud.es.io:443',
+      })
+    </script>
     <link rel='stylesheet' href='./css/styles.css'>
   </head>
   <body>
