@@ -8,7 +8,7 @@ async function getConfig() {
 }
 
 async function initSearch() {
-  // Fetch the search key, host identifier, and engine name
+  // Fetch the search key, and engine name
   config = await getConfig();
 
   // Initialize the Elastic App Search client
