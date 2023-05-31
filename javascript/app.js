@@ -1,6 +1,7 @@
 // app.js
 
 import { loadBlogPosts, blogContent } from './blog.js';
+import { initSearch, performSearch, displaySearchResults } from './search.js';
 
 const marked = window.marked;
 
@@ -156,3 +157,20 @@ document.querySelector('#main-content').addEventListener('click', async function
 
 window.addEventListener("scroll", updateActiveLinkPosition);
 window.addEventListener("resize", updateActiveLinkPosition);
+
+initSearch('your-host-identifier', 'your-search-key');
+
+// Add an event listener to the search form
+document.getElementById('search-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  
+  // Get the search term from the input field
+  const searchTerm = document.getElementById('search-input').value;
+  
+  // Perform a search
+  const results = await performSearch('your-engine-name', searchTerm);
+  
+  // Display the search results
+  const resultsContainer = document.getElementById('results-container');
+  displaySearchResults(results, resultsContainer);
+});
