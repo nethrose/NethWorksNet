@@ -209,4 +209,29 @@ section:target {
   background: radial-gradient(ellipse at center, rgba(62, 62, 62, 0.8) 20%, rgba(62, 62, 62, 0.5) 60%, transparent 100%);
 }
 
+#search-bar-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
 
+#search-bar {
+  width: 200px;
+  height: 25px;
+  border-radius: 20px;
+  border: none;
+  padding: 5px;
+  font-size: 14px;
+  background-color: #201c29;
+  color: #d39fee;
+  outline: none;
+}
+
+#search-bar::placeholder {
+  color: #d39fee;
+  opacity: 0.5;
+}
+
+#search-bar:focus {
+  box-shadow: 0 0 5px #ab49de;
+}
