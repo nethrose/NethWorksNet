@@ -1,31 +1,35 @@
-// search.js
-
+// Assuming Elastic App Search client is available globally
 let client;
+let config;
 
-function initSearch(hostIdentifier, searchKey) {
+async function getConfig() {
+  const response = await fetch('/.netlify/functions/config');
+  return response.json();
+}
+
+async function initSearch() {
+  // Fetch the search key, host identifier, and engine name
+  config = await getConfig();
+
   // Initialize the Elastic App Search client
-  client = elasticAppSearch.createClient({
-    hostIdentifier,
-    searchKey,
-  });
+  client = window.ElasticAppSearch.createClient(config);
 }
 
-async function performSearch(engineName, searchTerm) {
-  // Perform a search using the Elastic App Search client
-  const result = await client.search(engineName, searchTerm);
-  return result.results;
-}
-
-function displaySearchResults(results, container) {
-  // Clear the container
-  container.innerHTML = '';
-
-  // Iterate over the results and display them in the container
-  for (let result of results) {
-    const resultElement = document.createElement('div');
-    resultElement.textContent = result.title;
-    container.appendChild(resultElement);
+async function performSearch(query, options) {
+  if (!client) {
+    await initSearch();
   }
-}
 
-export { initSearch, performSearch, displaySearchResults };
+  // Perform the search using Elastic App Search JavaScript client
+  return client
+    .search(query, options)
+    .then((resultList) => {
+      // Process the search results
+      resultList.results.forEach((result) => {
+        console.log(`id: ${result.getRaw('id')} raw: ${result.getRaw('title')}`);
+      });
+    })
+    .catch((error) => {
+      console.error(`Error performing search: ${error}`);
+    });
+}
