@@ -15,7 +15,7 @@ async function initSearch() {
   client = window.ElasticAppSearch.createClient(config);
 }
 
-async function performSearch(query, options) {
+export async function performSearch(query, options) {
   if (!client) {
     await initSearch();
   }
