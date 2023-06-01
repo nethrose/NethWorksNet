@@ -7,29 +7,28 @@ async function getConfig() {
   return response.json();
 }
 
-export async function initSearch() {
-  // Fetch the search key, and engine name
+export async function initSearch(searchKey) {
+  // Fetch the engine name
   config = await getConfig();
 
   // Initialize the Elastic App Search client
-  client = window.ElasticAppSearch.createClient(config);
+  client = ElasticAppSearch.createClient({
+    searchKey,
+    engineName: config.engineName,
+  });
 }
 
-export async function performSearch(query, options) {
+export async function performSearch(query) {
   if (!client) {
     await initSearch();
   }
 
+  var options = {
+    search_fields: { title: {} },
+    result_fields: { id: { raw: {} }, title: { raw: {} } }
+  };
+
   // Perform the search using Elastic App Search JavaScript client
-  return client
-    .search(query, options)
-    .then((resultList) => {
-      // Process the search results
-      resultList.results.forEach((result) => {
-        console.log(`id: ${result.getRaw('id')} raw: ${result.getRaw('title')}`);
-      });
-    })
-    .catch((error) => {
-      console.error(`Error performing search: ${error}`);
-    });
+  const response = await client.search(query, options);
+  return response.results.map(result => ({ id: result.getRaw("id"), title: result.getRaw("title") }));
 }
