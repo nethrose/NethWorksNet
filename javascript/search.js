@@ -7,7 +7,7 @@ async function getConfig() {
   return response.json();
 }
 
-async function initSearch() {
+export async function initSearch() {
   // Fetch the search key, and engine name
   config = await getConfig();
 
