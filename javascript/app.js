@@ -1,7 +1,6 @@
 // app.js
 
 import { loadBlogPosts, blogContent } from './blog.js';
-import { initSearch, performSearch, } from './search.js';
 
 const marked = window.marked;
 
@@ -157,48 +156,3 @@ document.querySelector('#main-content').addEventListener('click', async function
 
 window.addEventListener("scroll", updateActiveLinkPosition);
 window.addEventListener("resize", updateActiveLinkPosition);
-
-window.onload = function() {
-  fetch('/.netlify/functions/config')
-    .then(response => response.json())
-    .then(data => {
-      // Initialize the search with the fetched search key
-      initSearch(data.searchKey);
-
-      // Add an event listener to the search form
-      document.getElementById('search-form').addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        // Get the search term from the input field
-        const searchTerm = document.getElementById('search-bar').value;
-
-        // Perform a search with the fetched engine name
-        const results = await performSearch(searchTerm);
-
-        // Display the search results
-        const resultsContainer = document.getElementById('results-container');
-        displaySearchResults(results, resultsContainer);
-      });
-    });
-}
-
-function displaySearchResults(results, resultsContainer) {
-  // Clear any previous results
-  resultsContainer.innerHTML = '';
-
-  // Loop through each result and add it to the results container
-  results.forEach(result => {
-    const resultElement = document.createElement('div');
-    resultElement.textContent = `ID: ${result.id}, Title: ${result.title}`;
-    resultsContainer.appendChild(resultElement);
-  });
-
-  // If there are results, show the results container
-  if (results.length > 0) {
-    resultsContainer.style.display = 'block';
-  } else {
-    resultsContainer.style.display = 'none';
-  }
-}
-
-
