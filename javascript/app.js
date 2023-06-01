@@ -173,7 +173,7 @@ window.onload = function() {
         const searchTerm = document.getElementById('search-bar').value;
 
         // Perform a search with the fetched engine name
-        const results = await performSearch(data.engineName, searchTerm);
+        const results = await performSearch(searchTerm);
 
         // Display the search results
         const resultsContainer = document.getElementById('results-container');
@@ -189,7 +189,7 @@ function displaySearchResults(results, resultsContainer) {
   // Loop through each result and add it to the results container
   results.forEach(result => {
     const resultElement = document.createElement('div');
-    resultElement.textContent = result;
+    resultElement.textContent = `ID: ${result.id}, Title: ${result.title}`;
     resultsContainer.appendChild(resultElement);
   });
 
@@ -200,4 +200,5 @@ function displaySearchResults(results, resultsContainer) {
     resultsContainer.style.display = 'none';
   }
 }
+
 
