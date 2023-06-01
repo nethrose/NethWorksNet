@@ -166,7 +166,7 @@ window.onload = function() {
       initSearch(data.searchKey);
 
       // Add an event listener to the search form
-      document.getElementById('search-form').addEventListener('submit', async (event) => {
+      document.getElementById('search-bar-container').addEventListener('submit', async (event) => {
         event.preventDefault();
 
         // Get the search term from the input field
