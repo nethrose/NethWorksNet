@@ -15,6 +15,7 @@ export async function initSearch(searchKey) {
   client = ElasticAppSearch.createClient({
     searchKey,
     engineName: config.engineName,
+    endpointBase: config.endpointBase
   });
 }
 
