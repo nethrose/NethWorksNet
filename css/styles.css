@@ -209,27 +209,32 @@ section:target {
   background: radial-gradient(ellipse at center, rgba(62, 62, 62, 0.8) 20%, rgba(62, 62, 62, 0.5) 60%, transparent 100%);
 }
 
+/*...your existing styles...*/
+
 #search-bar-container {
+  position: relative;
+  width: 200px;  /* Match the width of the search bar */
+  /* you may need to adjust the position according to your layout */
+}
+
+#results-container {
+  display: none; /* Initially hide the results */
   position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-#search-bar {
-  width: 200px;
-  height: 25px;
-  border-radius: 20px;
-  border: none;
-  padding: 5px;
-  font-size: 14px;
+  top: 100%; /* Position results directly under the search bar */
+  right: 0;
+  width: 100%; /* Match the width of the search bar container */
   background-color: #201c29;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
   color: #d39fee;
-  outline: none;
 }
 
-#search-bar::placeholder {
-  color: #d39fee;
-  opacity: 0.5;
+#results-container div {
+  padding: 10px;
+}
+
+#results-container div:hover {
+  background-color: rgba(62, 62, 62, 0.8);
 }
 
 #search-bar:focus {

@@ -189,7 +189,15 @@ function displaySearchResults(results, resultsContainer) {
   // Loop through each result and add it to the results container
   results.forEach(result => {
     const resultElement = document.createElement('div');
-    resultElement.textContent = result; // Update this line with how you want to display each result
+    resultElement.textContent = result;
     resultsContainer.appendChild(resultElement);
   });
+
+  // If there are results, show the results container
+  if (results.length > 0) {
+    resultsContainer.style.display = 'block';
+  } else {
+    resultsContainer.style.display = 'none';
+  }
 }
+
