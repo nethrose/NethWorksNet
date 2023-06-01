@@ -158,19 +158,43 @@ document.querySelector('#main-content').addEventListener('click', async function
 window.addEventListener("scroll", updateActiveLinkPosition);
 window.addEventListener("resize", updateActiveLinkPosition);
 
-initSearch('your-host-identifier', 'your-search-key');
+fetch('/.netlify/functions/config')
+  .then(response => response.json())
+  .then(data => {
+    // Initialize the search with the fetched search key
+    initSearch(data.searchKey);
 
-// Add an event listener to the search form
-document.getElementById('search-form').addEventListener('submit', async (event) => {
-  event.preventDefault();
-  
-  // Get the search term from the input field
-  const searchTerm = document.getElementById('search-input').value;
-  
-  // Perform a search
-  const results = await performSearch('your-engine-name', searchTerm);
-  
-  // Display the search results
-  const resultsContainer = document.getElementById('results-container');
-  displaySearchResults(results, resultsContainer);
-});
+    // Add an event listener to the search form
+    document.getElementById('search-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      
+      // Get the search term from the input field
+      const searchTerm = document.getElementById('search-input').value;
+      
+      // Perform a search with the fetched engine name
+      const results = await performSearch(data.engineName, searchTerm);
+      
+      // Display the search results
+      const resultsContainer = document.getElementById('results-container');
+      displaySearchResults(results, resultsContainer);
+    });
+  });
+
+// ./netlify/functions/config.js
+
+exports.handler = async () => {
+  const { ELASTIC_SEARCH_KEY, ELASTIC_ENGINE_NAME } = process.env;
+
+  const response = {
+    engineName: ELASTIC_ENGINE_NAME,
+  };
+
+  if (ELASTIC_SEARCH_KEY) {
+    response.searchKey = ELASTIC_SEARCH_KEY;
+  }
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify(response),
+  };
+};
