@@ -7,7 +7,7 @@ exports.handler = async () => {
     engineName: ELASTIC_ENGINE_NAME,
   };
 
-  if (SEARCH_KEY) {
+  if (ELASTIC_SEARCH_KEY) {
     response.searchKey = ELASTIC_SEARCH_KEY;
   }
 
