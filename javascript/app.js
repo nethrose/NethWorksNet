@@ -1,7 +1,7 @@
 // app.js
 
 import { loadBlogPosts, blogContent } from './blog.js';
-import { initSearch, performSearch, displaySearchResults } from './search.js';
+import { initSearch, performSearch, } from './search.js';
 
 const marked = window.marked;
 
