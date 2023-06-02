@@ -1,6 +1,7 @@
 // app.js
 
 import { loadBlogPosts, blogContent } from './blog.js';
+import { initSearch } from './search.js';
 
 const marked = window.marked;
 
@@ -156,3 +157,12 @@ document.querySelector('#main-content').addEventListener('click', async function
 
 window.addEventListener("scroll", updateActiveLinkPosition);
 window.addEventListener("resize", updateActiveLinkPosition);
+
+window.onload = function() {
+  fetch('/.netlify/functions/config')
+    .then(response => response.json())
+    .then(data => {
+      // Initialize the search with the fetched search key
+      initSearch(data.searchKey);
+    });
+}
