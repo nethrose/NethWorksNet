@@ -1,7 +1,5 @@
 // search.js
 
-import { ElasticAppSearch } from '@elastic/app-search-javascript'; // assuming you are using this npm package
-
 // Assuming Elastic App Search client is available globally
 let client;
 let config;
