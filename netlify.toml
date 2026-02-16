@@ -1,0 +1,7 @@
+# Static site - no build step
+[build]
+  publish = "."
+
+# Pin Node version to silence deprecation warnings
+[build.environment]
+  NODE_VERSION = "20"

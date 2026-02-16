@@ -16,9 +16,9 @@ const newPosts = blogFiles.map((file) => {
   const content = fs.readFileSync(postPath, 'utf-8');
   const { data } = matter(content);
 
-  // Extract the title from the file
-  const titleMatch = content.match(/<h1>(.*?)<\/h1>/);
-  const title = titleMatch ? titleMatch[1] : 'Untitled';
+  // Extract the title from the file (markdown # heading)
+  const titleMatch = content.match(/^#\s+(.+)$/m);
+  const title = titleMatch ? titleMatch[1].trim() : 'Untitled';
 
   // Check if the post already exists in the JSON file
   const existingPost = existingPosts.find((post) => post.filename === file);

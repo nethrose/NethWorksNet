@@ -14,26 +14,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.ACTIONS_BOT_PAT }} # Use the PAT instead of the default GITHUB_TOKEN
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 14
-      
+          node-version: "20"
+          cache: "npm"
+
       - name: Install dependencies
-        run: |
-          npm install gray-matter
+        run: npm ci
 
       - name: Update posts
         run: |
-          # Get the list of files in the /blog folder
-          BLOG_FILES=$(find blog -type f -name "*.md" | sort)
+          # Get the list of .md files in blog/ (filenames only, to match posts.json)
+          BLOG_FILES=$(find blog -type f -name "*.md" -exec basename {} \; | sort)
 
           # Get the list of files in posts.json
-          POSTS_JSON_FILES=$(node -e "const fs = require('fs'); const path = require('path'); const postsJsonPath = path.join(__dirname, 'blog', 'posts.json'); const posts = JSON.parse(fs.readFileSync(postsJsonPath, 'utf8')); console.log(posts.map(p => p.filename).sort().join('\n'))")
+          POSTS_JSON_FILES=$(node -e "const fs = require('fs'); const path = require('path'); const postsJsonPath = path.join(process.cwd(), 'blog', 'posts.json'); const posts = JSON.parse(fs.readFileSync(postsJsonPath, 'utf8')); console.log(posts.map(p => p.filename).sort().join('\n'))")
           if [ "$BLOG_FILES" != "$POSTS_JSON_FILES" ]; then
             echo "Updating posts.json"
             node scripts/update_posts.js
