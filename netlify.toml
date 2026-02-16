@@ -3,6 +3,6 @@
   publish = "."
 
 # Node version: also set via .nvmrc (Netlify uses whichever is present)
-# See https://docs.netlify.com/build/configure-builds/manage-dependencies/
+# Agent Runners require Node 22+
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
