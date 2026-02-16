@@ -160,12 +160,18 @@ section:target {
 }
 
 .whois-link {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem;
+  width: 48px;
+  height: 48px;
+  padding: 0;
   border-radius: 0.5rem;
   transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.whois-link svg {
+  flex-shrink: 0;
 }
 
 .whois-link:hover {
@@ -181,9 +187,6 @@ section:target {
   color: #d39fee;
 }
 
-.whois-link svg {
-  display: block;
-}
 
 .profile-container::before {
   content: '';
