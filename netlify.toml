@@ -2,6 +2,7 @@
 [build]
   publish = "."
 
-# Pin Node version to silence deprecation warnings
+# Node version: also set via .nvmrc (Netlify uses whichever is present)
+# See https://docs.netlify.com/build/configure-builds/manage-dependencies/
 [build.environment]
   NODE_VERSION = "20"
