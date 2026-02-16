@@ -1,0 +1,42 @@
+---
+description: CSS structure and design system
+globs: css/**/*.css
+alwaysApply: false
+---
+
+# CSS & Design System
+
+## Layout
+
+- **Nav**: Fixed left, `top: 9rem`, column layout
+- **Main**: `margin-left: 12rem` to clear nav
+- **Header**: Centered title with gradient underline
+
+## Color Palette
+
+| Token | Value | Use |
+|-------|-------|-----|
+| Background | `#201c29` | Body |
+| Primary accent | `#ab49de` | Title, gradients |
+| Secondary | `#d39fee` | Nav links, underlines, content text |
+
+## Typography
+
+- Font: `Montserrat` (Google Fonts)
+- Base: `62.5%` (10px equivalent)
+- Title: `2rem`, uppercase
+- Nav: `1.4rem`; active state `2rem`
+
+## Content Sections
+
+Shared pattern for `.content-section`, `.profile-container`, `.rendered-content`:
+
+- `::before` pseudo: radial gradient background
+- `border-radius: 15px`, `box-shadow`
+- `.profile-container`: flex, space-evenly (GitHub + PDF widgets)
+
+## Nav Animation
+
+- `.nav-link.active`: absolute positioning, `translate(-50%, -50%)`, `2rem` font
+- `::before` on links: gradient underline, `scaleX(0.1)` default, `scaleX(1)` on hover/active
+- Transition: `0.5s` for position/opacity

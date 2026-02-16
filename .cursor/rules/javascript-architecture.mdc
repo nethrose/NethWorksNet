@@ -1,0 +1,42 @@
+---
+description: JS/HTML architecture and patterns
+globs: javascript/**/*.js, index.html
+alwaysApply: false
+---
+
+# JavaScript & HTML Architecture
+
+## Content Injection
+
+Tab content is defined in `contentMap` in `app.js`. Each key maps to a function that returns HTML (string or Promise).
+
+```javascript
+contentMap = {
+  about: () => `...`,
+  blog: async () => await blogContent(),
+  contact: () => `...`,
+}
+```
+
+`insertHTMLAndExecuteScripts()` injects HTML into `#main-content` and executes any `<script>` tags (external + inline). Used for dynamic content (e.g. GitHub widget).
+
+## Navigation
+
+- Nav links use `data-tab` to match `contentMap` keys
+- Sliding indicator: `.nav-indicator` moves to active link via `moveIndicatorTo(link)`
+- Click handler: prevents default, toggles `.active`, updates indicator, loads content
+- Indicator uses CSS vars `--indicator-top`, `--indicator-height`; `cubic-bezier(0.4, 0, 0.2, 1)` for transitions
+
+## Blog Flow
+
+1. `blog.js` → `loadBlogPosts()` fetches `/blog/posts.json`
+2. Sorts by `YYYY-MM-DD` prefix in filename
+3. Fetches each `.md` file, extracts title via `^#\s+(.+)$/m`
+4. Renders list as `<a class="blog-post-link" data-post="filename.md">` links
+5. Click handler in `app.js` fetches `/blog/{filename}`, parses with `marked`, injects into `#main-content`
+
+## Conventions
+
+- No URL routing; SPA uses hash-free content switching
+- Blog posts use `YYYY-MM-DD-slug.md` naming for sort order
+- Marked options: `{ mangle: false, headerIds: false }`

@@ -2,7 +2,7 @@
 
 export async function loadBlogPosts() {
   return new Promise(async (resolve) => {
-    const response = await fetch("/blog/posts.json");
+    const response = await fetch(new URL("blog/posts.json", location.href).href);
     const blogPostFiles = await response.json();
     const mdBlogPostFiles = blogPostFiles.filter(fileObj => fileObj.filename.endsWith('.md'));
 
@@ -16,7 +16,7 @@ export async function loadBlogPosts() {
 
     for (const fileObj of mdBlogPostFiles) {
       const file = fileObj.filename;
-      const response = await fetch(`/blog/${file}`);
+      const response = await fetch(new URL(`blog/${file}`, location.href).href);
       const content = await response.text();
       const titleMatch = content.match(/^#\s+(.+)$/m);
       if (titleMatch) {

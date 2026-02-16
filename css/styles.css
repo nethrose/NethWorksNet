@@ -48,13 +48,10 @@ h1 {
 
 nav {
   position: fixed;
-  top: 9rem; /* move the nav further up */
+  top: 9rem;
   left: 0;
-  display: flex;
-  flex-direction: column;
   padding: 1rem;
-  background-color: transparent;
-  transform: translateY(-50%); /* center the nav vertically */
+  transform: translateY(-50%);
 }
 
 nav ul {
@@ -63,63 +60,73 @@ nav ul {
   margin: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 0.5rem;
+  position: relative;
 }
 
-.nav-link.active {
+.nav-indicator {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2rem;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: var(--indicator-height, 2.5rem);
+  top: var(--indicator-top, 0);
+  transform: translateY(-50%);
+  background: linear-gradient(180deg, #ab49de, #d39fee);
+  border-radius: 2px;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+  pointer-events: none;
+  opacity: 0;
 }
 
-.nav-link.moving {
-  z-index: 100;
-}
-
-.nav-link.active::before {
-  transform: translateX(-50%) scaleX(1);
-  transition: transform 0.5s ease;
+nav:has(.active) .nav-indicator {
+  opacity: 1;
 }
 
 nav a {
-  color: #d39fee;
+  color: rgba(211, 159, 238, 0.65);
   text-decoration: none;
   padding: 0.5rem 1rem;
-  margin: 0.0rem 0;
-  border-radius: 0.5rem;
   font-size: 1.4rem;
   position: relative;
-  display: inline-block;
-  transition: all 0.5s ease;
+  display: block;
+  transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav a:hover {
+  color: #d39fee;
 }
 
 nav a.active {
-  transition: top 0.5s, left 0.5s, transform 0.5s, opacity 0.5s;
+  color: #d39fee;
+  font-weight: 500;
 }
 
-nav a::before {
+nav a::after {
   content: "";
   position: absolute;
   bottom: 0;
-  left: 50%;
+  left: 0;
   width: 100%;
-  height: 2px;
-  background: linear-gradient(to right, transparent 0%, #d39fee 50%, transparent 100%);
-  transform: translateX(-50%) scaleX(0.1); /* adjust the transform to center the underline */
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d39fee 20%, #d39fee 80%, transparent);
+  transform: scaleX(0);
   transform-origin: center;
-  transition: transform 0.3s ease;
-  transition: width 0.5s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-nav a:hover::before {
-  transform: translateX(-50%) scaleX(1); /* adjust the transform on hover to keep the underline centered */
+nav a:hover::after,
+nav a.active::after {
+  transform: scaleX(1);
 }
 
 main {
   margin-left: 12rem;
   padding: 2rem 2rem 2rem 0;
+}
+
+#main-content {
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 section {
@@ -132,14 +139,50 @@ section:target {
 
 .profile-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: flex-start;
+  gap: 2rem;
   position: relative;
   border-radius: 15px;
   padding: 20px;
   overflow: hidden;
   margin: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.whois-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.whois-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.whois-link:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+.whois-link--github {
+  color: #d39fee;
+}
+
+.whois-link--linkedin {
+  color: #d39fee;
+}
+
+.whois-link svg {
+  display: block;
 }
 
 .profile-container::before {
@@ -154,12 +197,6 @@ section:target {
   background: radial-gradient(ellipse at center, rgba(62, 62, 62, 0.8) 20%, rgba(62, 62, 62, 0.5) 60%, transparent 100%);
 }
 
-.github-widget,
-.pdf-widget {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-  border-radius: 1rem;
-  overflow: hidden;
-}
 
 .content-section {
   position: relative;
