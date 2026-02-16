@@ -122,7 +122,7 @@ nav a.active::after {
 
 main {
   margin-left: 12rem;
-  padding: 2rem 2rem 2rem 0;
+  padding: 0 2rem 2rem 0;
 }
 
 #main-content {
@@ -147,7 +147,7 @@ section:target {
   border-radius: 15px;
   padding: 20px;
   overflow: hidden;
-  margin: 10px;
+  margin: 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
@@ -179,10 +179,8 @@ section:target {
   opacity: 0.9;
 }
 
-.whois-link--github {
-  color: #d39fee;
-}
-
+.whois-link--youtube,
+.whois-link--github,
 .whois-link--linkedin {
   color: #d39fee;
 }
@@ -206,8 +204,8 @@ section:target {
   border-radius: 15px;
   padding: 20px;
   overflow: hidden;
-  margin: 30px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* Add the box-shadow back */
+  margin: 0 30px 30px 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .content-section::before {
@@ -226,15 +224,28 @@ section:target {
   color: #d39fee;
   font-size: 16px;
   line-height: 1.5;
-  
   position: relative;
   border-radius: 15px;
   padding: 20px;
   overflow: hidden;
-  margin: 30px;
+  margin: 0 30px 30px 30px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-  
-  margin-top: 50px; /* Add this line */
+}
+
+.rendered-content a,
+.rendered-content a:visited {
+  color: #d39fee;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.rendered-content a:hover {
+  color: #e6b8f5;
+}
+
+.blog-post-link {
+  display: inline-block;
+  margin-bottom: 0.5em;
 }
 
 .rendered-content::before {
