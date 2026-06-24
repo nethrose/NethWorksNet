@@ -1,7 +1,7 @@
 # NethWorksNet
 
-This is the repo for my personal website and pseudo portfolio.
+It's a website.
 
-This is a simple HTML, CSS and JS site that serves as a "whois" landing page with links to my profiles.
+It says who I am.
 
-Note that this is being hosted on Netlify!
+Netlify deployed project and Netlify DNS with automated git builds from this repo.
