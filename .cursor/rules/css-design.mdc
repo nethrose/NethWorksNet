@@ -29,11 +29,11 @@ alwaysApply: false
 
 ## Content Sections
 
-Shared pattern for `.content-section`, `.profile-container`:
+Shared pattern for `.content-section`:
 
 - `::before` pseudo: radial gradient background
 - `border-radius: 15px`, `box-shadow`
-- `.profile-container` / `.whois-links`: flex, centered social profile links
+- `.whois-links`: vertical flex column of `.whois-link` rows (icon + `.whois-alias`), left-aligned
 
 ## Nav Animation
 

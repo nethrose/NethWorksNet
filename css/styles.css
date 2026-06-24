@@ -9,7 +9,7 @@ body {
 
 h1 {
   text-transform: uppercase;
-  text-align: center;
+  text-align: left;
   font-size: 2rem;
   writing-mode: horizontal-tb;
   color: #ab49de;
@@ -19,6 +19,12 @@ h1 {
   user-select: none;
   margin-top: 0;
   padding-top: 2rem;
+  padding-left: 1rem;
+}
+
+/* Keep the gradient underline hugging the text, not the full row width */
+h1 .gradient-underline {
+  display: inline-block;
 }
 
 .gradient-underline {
@@ -137,37 +143,22 @@ section:target {
   display: block;
 }
 
-.profile-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-items: flex-start;
-  gap: 2rem;
-  position: relative;
-  border-radius: 15px;
-  padding: 20px;
-  overflow: hidden;
-  margin: 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-}
-
 .whois-links {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  padding: 2rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
 }
 
 .whois-link {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  padding: 0;
+  gap: 1rem;
+  padding: 0.25rem 0.5rem;
   border-radius: 0.5rem;
+  text-decoration: none;
   transition: transform 0.2s ease, opacity 0.2s ease;
+  transform-origin: left center;
 }
 
 .whois-link svg {
@@ -175,7 +166,7 @@ section:target {
 }
 
 .whois-link:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
   opacity: 0.9;
 }
 
@@ -185,17 +176,10 @@ section:target {
   color: #d39fee;
 }
 
-
-.profile-container::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  bottom: -10px;
-  left: -10px;
-  right: -10px;
-  border-radius: 25px;
-  z-index: -1;
-  background: radial-gradient(ellipse at center, rgba(62, 62, 62, 0.8) 20%, rgba(62, 62, 62, 0.5) 60%, transparent 100%);
+.whois-alias {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #d39fee;
 }
 
 
