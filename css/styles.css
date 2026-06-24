@@ -140,14 +140,44 @@ section:target {
 }
 
 .whois-links {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 1.25rem;
 }
 
-/* Each social item mirrors a nav link: dim by default, bright when active,
-   with its own left bar and the same animated underline. No hover state. */
+/* One continuous gradient line down the left of all items. ::before is the
+   dim base; ::after is a bright copy revealed only over the hovered segment. */
+.whois-links::before,
+.whois-links::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #ab49de, #d39fee);
+  pointer-events: none;
+}
+
+.whois-links::before {
+  opacity: 0.35;
+}
+
+.whois-links::after {
+  opacity: 0;
+  clip-path: inset(var(--hl-top, 0px) 0 calc(100% - var(--hl-top, 0px) - var(--hl-height, 0px)) 0);
+  transition: opacity 0.2s ease, clip-path 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.whois-links.bar-active::after {
+  opacity: 1;
+}
+
+/* Each social item mirrors a nav link: dim by default, brightening on hover,
+   with the same animated underline. The left bar is shared (above). */
 .whois-link {
   position: relative;
   display: flex;
@@ -168,21 +198,6 @@ section:target {
   font-weight: 500;
 }
 
-/* Left bar, like the nav indicator */
-.whois-link::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 100%;
-  background: linear-gradient(180deg, #ab49de, #d39fee);
-  border-radius: 2px;
-  opacity: 0.35;
-  transition: opacity 0.2s ease;
-}
-
 /* Animated underline, identical to the nav links */
 .whois-link::after {
   content: "";
@@ -199,10 +214,6 @@ section:target {
 
 .whois-link:hover {
   color: #d39fee;
-}
-
-.whois-link:hover::before {
-  opacity: 1;
 }
 
 .whois-link:hover::after {

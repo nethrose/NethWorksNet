@@ -66,9 +66,29 @@ links.forEach(function (link) {
 
     insertContent(mainContent, contentMap[tab](), () => {
       mainContent.style.opacity = 1;
+      if (tab === "about") setupWhoisBar();
     });
   });
 });
+
+// Drive the shared continuous left bar: brighten the hovered item's segment
+// by clipping the bright overlay to that item, sliding between segments.
+function setupWhoisBar() {
+  const container = document.querySelector(".whois-links");
+  if (!container) return;
+  container.querySelectorAll(".whois-link").forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      const cRect = container.getBoundingClientRect();
+      const iRect = item.getBoundingClientRect();
+      container.style.setProperty("--hl-top", `${iRect.top - cRect.top}px`);
+      container.style.setProperty("--hl-height", `${iRect.height}px`);
+      container.classList.add("bar-active");
+    });
+  });
+  container.addEventListener("mouseleave", () => {
+    container.classList.remove("bar-active");
+  });
+}
 
 // Line the content area's left edge up with the right edge of the nav
 // link's underline, so content (whois and any future tab) is flush with it.
@@ -95,13 +115,12 @@ function alignNavWithTitle() {
 function alignLayout() {
   alignNavWithTitle();
   alignMainWithNav();
+  // Keep the whois indicator bar pinned to the nav link, even when inactive.
+  const navLink = document.querySelector(".nav-link");
+  if (navLink) moveIndicatorTo(navLink);
 }
 
-window.addEventListener("resize", () => {
-  const active = document.querySelector(".nav-link.active");
-  if (active) moveIndicatorTo(active);
-  alignLayout();
-});
+window.addEventListener("resize", alignLayout);
 
 // Start on a blank page; whois is an opt-in toggle (click to show, click to hide).
 window.addEventListener("DOMContentLoaded", alignLayout);
