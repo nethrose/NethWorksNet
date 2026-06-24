@@ -3,12 +3,6 @@
   "version": "1.0.0",
   "description": "Personal website and pseudo portfolio",
   "private": true,
-  "scripts": {
-    "update-posts": "node scripts/update_posts.js"
-  },
-  "dependencies": {
-    "gray-matter": "^4.0.3"
-  },
   "engines": {
     "node": ">=22"
   }

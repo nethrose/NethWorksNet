@@ -7,30 +7,23 @@ alwaysApply: true
 
 ## What It Is
 
-A single-page personal portfolio/blog site. Vanilla HTML/CSS/JS, no framework or build step. Uses ES modules and CDN scripts.
+A single-page personal "whois" landing site. Vanilla HTML/CSS/JS, no framework or build step. Uses ES modules.
 
 ## Key Files
 
 | File | Purpose |
 |------|---------|
 | `index.html` | Shell: header, nav, main content area |
-| `javascript/app.js` | SPA logic: tab switching, content injection, nav animation |
-| `javascript/blog.js` | Blog module: loads posts from `posts.json`, fetches Markdown |
+| `javascript/app.js` | SPA logic: tab content, content injection, nav animation |
 | `css/styles.css` | All styles |
-| `blog/*.md` | Markdown posts |
-| `blog/posts.json` | Post metadata (run `node scripts/update_posts.js` to regenerate) |
-| `scripts/update_posts.js` | Node script: scans `blog/*.md`, updates `posts.json` |
 
 ## Tabs / Content Map
 
-- **whois** (`data-tab="about"`): GitHub card (nethrose) + Google Drive PDF embed
-- **blog**: List of posts from `blog/`, click to render Markdown
+- **whois** (`data-tab="about"`): social profile links (YouTube, GitHub, LinkedIn), shown by default
 
 ## Dependencies
 
-- **marked** (CDN): Markdown → HTML
-- **gray-matter** (Node): Frontmatter parsing in `update_posts.js`
-- Requires a local server (e.g. `npx serve`) to serve `/blog/` for fetch
+- None (no build step, no runtime dependencies)
 
 ## Design Tokens
 

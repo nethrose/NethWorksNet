@@ -1,8 +1,5 @@
 // app.js
 
-import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
-import { loadBlogPosts, blogContent } from "./blog.js";
-
 const links = document.querySelectorAll("nav a");
 
 const contentMap = {
@@ -19,7 +16,6 @@ const contentMap = {
       </a>
     </div>
   `,
-  blog: async () => await blogContent(),
 };
 
 function moveIndicatorTo(link) {
@@ -71,27 +67,18 @@ links.forEach(function (link) {
   });
 });
 
-document.getElementById("main-content").addEventListener("click", async function (event) {
-  const link = event.target.closest(".blog-post-link");
-  if (!link) return;
-
-  event.preventDefault();
-
-  const postFileName = link.getAttribute("data-post");
-
-  try {
-    const url = new URL(`blog/${postFileName}`, location.href).href;
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(response.statusText);
-    const content = await response.text();
-    const htmlContent = marked.parse(content);
-    this.innerHTML = `<div class="content-section rendered-content">${htmlContent}</div>`;
-  } catch (err) {
-    this.innerHTML = `<div class="content-section rendered-content"><p>Could not load post.</p></div>`;
-  }
-});
-
 window.addEventListener("resize", () => {
   const active = document.querySelector(".nav-link.active");
   if (active) moveIndicatorTo(active);
+});
+
+// Whois is the only tab, so show it by default.
+window.addEventListener("DOMContentLoaded", () => {
+  const whoisLink = document.querySelector('.nav-link[data-tab="about"]');
+  if (!whoisLink) return;
+  whoisLink.classList.add("active");
+  moveIndicatorTo(whoisLink);
+  insertContent(document.getElementById("main-content"), contentMap.about(), () => {
+    document.getElementById("main-content").style.opacity = 1;
+  });
 });
