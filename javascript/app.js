@@ -79,11 +79,29 @@ function alignMainWithNav() {
   main.style.marginLeft = `${navLink.getBoundingClientRect().right}px`;
 }
 
+// Raise the nav so the top of the active indicator bar (= the nav link's top)
+// sits just beneath the bottom of the title's underline.
+function alignNavWithTitle() {
+  const underline = document.querySelector(".gradient-underline");
+  const nav = document.querySelector("nav");
+  const navLink = document.querySelector(".nav-link");
+  if (!underline || !nav || !navLink) return;
+  const gap = 6;
+  const desiredLinkTop = underline.getBoundingClientRect().bottom + gap;
+  const delta = desiredLinkTop - navLink.getBoundingClientRect().top;
+  nav.style.top = `${nav.getBoundingClientRect().top + delta}px`;
+}
+
+function alignLayout() {
+  alignNavWithTitle();
+  alignMainWithNav();
+}
+
 window.addEventListener("resize", () => {
   const active = document.querySelector(".nav-link.active");
   if (active) moveIndicatorTo(active);
-  alignMainWithNav();
+  alignLayout();
 });
 
 // Start on a blank page; whois is an opt-in toggle (click to show, click to hide).
-window.addEventListener("DOMContentLoaded", alignMainWithNav);
+window.addEventListener("DOMContentLoaded", alignLayout);

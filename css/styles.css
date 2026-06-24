@@ -54,10 +54,10 @@ h1 .gradient-underline {
 
 nav {
   position: fixed;
-  top: 9rem;
+  /* Fallback; JS aligns this precisely under the title's underline. */
+  top: 7rem;
   left: 0;
   padding: 1rem;
-  transform: translateY(-50%);
 }
 
 nav ul {
