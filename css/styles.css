@@ -127,7 +127,8 @@ nav a.active::after {
 }
 
 main {
-  margin-left: 12rem;
+  /* Fallback; JS aligns this precisely to the nav underline's right edge. */
+  margin-left: 7rem;
   padding: 0 2rem 2rem 0;
 }
 
@@ -177,7 +178,7 @@ section:target {
 }
 
 .whois-alias {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   font-weight: 500;
   color: #d39fee;
 }
@@ -188,7 +189,7 @@ section:target {
   border-radius: 15px;
   padding: 20px;
   overflow: hidden;
-  margin: 0 30px 30px 30px;
+  margin: 0 30px 30px 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 

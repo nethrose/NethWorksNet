@@ -70,18 +70,20 @@ links.forEach(function (link) {
   });
 });
 
+// Line the content area's left edge up with the right edge of the nav
+// link's underline, so content (whois and any future tab) is flush with it.
+function alignMainWithNav() {
+  const navLink = document.querySelector(".nav-link");
+  const main = document.querySelector("main");
+  if (!navLink || !main) return;
+  main.style.marginLeft = `${navLink.getBoundingClientRect().right}px`;
+}
+
 window.addEventListener("resize", () => {
   const active = document.querySelector(".nav-link.active");
   if (active) moveIndicatorTo(active);
+  alignMainWithNav();
 });
 
-// Whois is the only tab, so show it by default.
-window.addEventListener("DOMContentLoaded", () => {
-  const whoisLink = document.querySelector('.nav-link[data-tab="about"]');
-  if (!whoisLink) return;
-  whoisLink.classList.add("active");
-  moveIndicatorTo(whoisLink);
-  insertContent(document.getElementById("main-content"), contentMap.about(), () => {
-    document.getElementById("main-content").style.opacity = 1;
-  });
-});
+// Start on a blank page; whois is an opt-in toggle (click to show, click to hide).
+window.addEventListener("DOMContentLoaded", alignMainWithNav);
