@@ -82,7 +82,7 @@ nav ul {
   border-radius: 2px;
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
   pointer-events: none;
-  opacity: 0;
+  opacity: 0.35;
 }
 
 nav:has(.active) .nav-indicator {
@@ -97,10 +97,6 @@ nav a {
   position: relative;
   display: block;
   transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-nav a:hover {
-  color: #d39fee;
 }
 
 nav a.active {
@@ -121,7 +117,6 @@ nav a::after {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-nav a:hover::after,
 nav a.active::after {
   transform: scaleX(1);
 }
@@ -151,57 +146,72 @@ section:target {
   gap: 1.25rem;
 }
 
+/* Each social item mirrors a nav link: dim by default, bright when active,
+   with its own left bar and the same animated underline. No hover state. */
 .whois-link {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: rgba(211, 159, 238, 0.65);
   text-decoration: none;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-  transform-origin: left center;
+  transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .whois-link svg {
   flex-shrink: 0;
 }
 
-.whois-link:hover {
-  transform: scale(1.08);
-  opacity: 0.9;
-}
-
-.whois-link--youtube,
-.whois-link--github,
-.whois-link--linkedin {
-  color: #d39fee;
-}
-
 .whois-alias {
   font-size: 1.2rem;
   font-weight: 500;
+}
+
+/* Left bar, like the nav indicator */
+.whois-link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, #ab49de, #d39fee);
+  border-radius: 2px;
+  opacity: 0.35;
+  transition: opacity 0.2s ease;
+}
+
+/* Animated underline, identical to the nav links */
+.whois-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d39fee 20%, #d39fee 80%, transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.whois-link:hover {
   color: #d39fee;
 }
 
-
-.content-section {
-  position: relative;
-  border-radius: 15px;
-  padding: 20px;
-  overflow: hidden;
-  margin: 0 30px 30px 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+.whois-link:hover::before {
+  opacity: 1;
 }
 
-.content-section::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  bottom: -10px;
-  left: -10px;
-  right: -10px;
-  border-radius: 25px;
-  z-index: -1;
-  background: radial-gradient(ellipse at center, rgba(62, 62, 62, 0.8) 20%, rgba(62, 62, 62, 0.5) 60%, transparent 100%);
+.whois-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Structural wrapper only - no background image/glow; the bars and
+   underlines provide the visual, matching the nav style left to right. */
+.content-section {
+  position: relative;
 }
 
