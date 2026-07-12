@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- NethWorksNet mark: an "N" in the site's purple gradient on its dark
+       ground. Colors are the site tokens: bg #201c29, accents #ab49de -> #d39fee. -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ab49de"/>
+      <stop offset="1" stop-color="#d39fee"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#201c29"/>
+  <path d="M18 48 V16 L46 48 V16" fill="none" stroke="url(#g)" stroke-width="8"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
