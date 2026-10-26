@@ -6,7 +6,7 @@ no build step; the one script (`javascript/app.js`) is an ES module.
 ## Deploy + DNS blast radius
 
 - **Netlify auto-deploys on push to the default branch** — verify locally
-  before pushing. Static publish (`netlify.toml`, `publish = "."`); the Node 22
+  before pushing. Static publish (`netlify.toml`, `publish = "."`); the Node 24
   pins (`.nvmrc`, `netlify.toml`) matter only to the Netlify environment.
 - **Netlify also runs DNS for `nethworks.net`, and the same zone serves
   `jellyfin.nethworks.net` for the cm3588 NAS.** DNS-affecting changes have
