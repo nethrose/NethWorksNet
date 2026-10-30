@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Personal website and pseudo portfolio",
   "private": true,
+  "scripts": {
+    "build": "node scripts/generate-security-txt.mjs .",
+    "test": "node --test"
+  },
   "engines": {
     "node": ">=24.22.1"
   }

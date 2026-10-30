@@ -1,5 +1,7 @@
-# Static site - no build step
+# Static site - the only build step generates /.well-known/security.txt
+# (scripts/generate-security-txt.mjs) straight into the published root.
 [build]
+  command = "npm run build"
   publish = "."
 
 # Node version: also set via .nvmrc (Netlify uses whichever is present)
