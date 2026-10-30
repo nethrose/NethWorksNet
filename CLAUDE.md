@@ -1,7 +1,7 @@
 # NethWorksNet — nethworks.net
 
-Single-page personal "whois" landing site. Vanilla HTML/CSS/JS — no framework,
-no build step; the one script (`javascript/app.js`) is an ES module.
+Single-page personal "whois" landing site. Vanilla HTML/CSS/JS — no framework;
+the one script (`javascript/app.js`) is an ES module.
 
 ## Deploy + DNS blast radius
 
@@ -12,6 +12,17 @@ no build step; the one script (`javascript/app.js`) is an ES module.
   `jellyfin.nethworks.net` for the cm3588 NAS.** DNS-affecting changes have
   blast radius beyond this site. The jellyfin A record is manually maintained
   (no DDNS).
+- **`/.well-known/security.txt` is generated at Netlify build time, never
+  committed.** `npm run build` (the `netlify.toml` build command) runs
+  `scripts/generate-security-txt.mjs .`, which writes the file straight into
+  the published root, dates `Expires` six months from the build clock, and
+  refuses to finish if the result is missing `Contact` or carries an
+  `Expires` already past or more than a year out. Contact is
+  `security@nethworks.net` (Neth Works LLC, not a person) — there is
+  deliberately no `/security` page and no nav or footer link. This check only
+  catches a malformed file at build time: it does not catch staleness, and no
+  scheduled job re-runs the build, so the deployed file goes stale if the
+  site is not redeployed within six months of its last build.
 
 ## Architecture (read before changing behavior)
 
