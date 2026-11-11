@@ -131,6 +131,28 @@ main {
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.company-intro {
+  max-width: 48rem;
+  margin: 0 0 2rem;
+  color: rgba(211, 159, 238, 0.85);
+  font-size: 1.3rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.company-intro strong {
+  color: #d39fee;
+}
+
+.company-intro a {
+  color: #d39fee;
+  text-decoration: underline;
+}
+
+.company-intro a:hover {
+  color: #ab49de;
+}
+
 section {
   display: none;
 }

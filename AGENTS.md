@@ -1,7 +1,8 @@
 # NethWorksNet — nethworks.net
 
-Single-page personal "whois" landing site. Vanilla HTML/CSS/JS — no framework;
-the one script (`javascript/app.js`) is an ES module.
+Single-page site for Neth Works LLC, with a personal "whois"/"whatdo" toggle
+area underneath. Vanilla HTML/CSS/JS — no framework; the one script
+(`javascript/app.js`) is an ES module.
 
 ## Deploy + DNS blast radius
 
@@ -27,12 +28,15 @@ the one script (`javascript/app.js`) is an ES module.
 ## Architecture (read before changing behavior)
 
 - `index.html` — shell: header/title, nav with the whois link + sliding
-  `.nav-indicator`, empty `#main-content`.
+  `.nav-indicator`, a static `.company-intro` paragraph (always visible — the
+  LLC name, what it makes, and contact; this is the one part of `<main>` not
+  gated behind a tab click, by design), empty `#main-content`.
 - `javascript/app.js` — all logic. `contentMap` holds tab content as
   HTML-returning functions keyed by `data-tab`; `insertContent()` injects into
-  `#main-content`. The site starts blank — clicking whois is an opt-in toggle.
-  No URL routing. `setupWhoisBar()` drives the social-links hover bar;
-  `alignLayout()` (on load + resize) aligns nav and main to the title.
+  `#main-content`. `#main-content` starts blank — clicking whois/whatdo is an
+  opt-in toggle. No URL routing. `setupWhoisBar()` drives the social-links
+  hover bar; `alignLayout()` (on load + resize) aligns nav and main to the
+  title.
 - `css/styles.css` — all styles. Tokens: bg `#201c29`, accents `#ab49de` /
   `#d39fee`, Montserrat (Google Fonts), base font-size 62.5% (1rem ≈ 10px).
 - Whois tab renders social links: YouTube/LinkedIn `@netheroth`, GitHub
