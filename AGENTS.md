@@ -32,20 +32,26 @@ area underneath. Vanilla HTML/CSS/JS — no framework; the one script
   viewport bottom at every width, independent of nav/content height so it
   can't collide with either; stays on one line via tight padding, never a
   smaller font) with a copyright line and a `Contact` link to `contact.html`.
-- `contact.html` — shares `index.html`'s header, nav and `#main-content`
-  toggle area (same markup, same `app.js`), so whois/whatdo work identically
-  from here. Adds an always-visible `.contact-content` block above
-  `#main-content`: legal name, one line on what the company makes (nocternal,
-  placeholder), contact addresses, a link back to `index.html`. Also carries
-  the same `.site-footer`. Reuses `css/styles.css` via `.statement-page`/
-  `.statement-text` (class names kept from when this page was introduced as
-  a standalone company statement, before it gained the shared nav).
-- `javascript/app.js` — shared logic for both pages. `contentMap` holds tab
-  content as HTML-returning functions keyed by `data-tab`; `insertContent()`
-  injects into `#main-content`. `#main-content` starts blank — clicking
-  whois/whatdo is an opt-in toggle. No URL routing. `setupWhoisBar()` drives
-  the social-links hover bar; `alignLayout()` (on load + resize) aligns nav
-  and main to the title.
+- `contact.html` — byte-for-byte the same shell as `index.html` (header, nav,
+  empty `#main-content`, `.site-footer`, same `app.js`) except its title and
+  `<body data-home="contact">`. That attribute is the only thing that makes
+  it behave differently: `app.js` reads it as `homeTab` and uses it to pick
+  what `#main-content` shows with no tab active, via `contentMap.contact`
+  (legal name, what the company makes, contact addresses — no back link; the
+  shared nav is the way back now). Keep this page a true "home tab" rather
+  than a separate always-visible block beside `#main-content` — a second,
+  independently-positioned block was tried and rejected because it could
+  render at once with a toggled tab instead of being replaced by it, and
+  could drift out of alignment with the nav independently.
+- `javascript/app.js` — shared logic for both pages. `contentMap` holds every
+  swappable piece of `#main-content` (whois as `about`, `whatdo`, and
+  `contact`) as HTML-returning functions; `insertContent()` replaces
+  `#main-content` wholesale, so switching tabs always swaps content, never
+  stacks it. `renderHomeOrBlank()` is what `#main-content` reverts to with no
+  tab active (on load, and when the active tab is clicked again to turn it
+  off): `contentMap[document.body.dataset.home]` if the page sets `data-home`,
+  else empty. No URL routing. `setupWhoisBar()` drives the social-links hover
+  bar; `alignLayout()` (on load + resize) aligns nav and main to the title.
 - `css/styles.css` — all styles, shared by both pages. Tokens: bg `#201c29`,
   accents `#ab49de` / `#d39fee`, Montserrat (Google Fonts), base font-size
   62.5% (1rem ≈ 10px). `.whois-links`/`.whois-link`/`.whois-alias` must stay

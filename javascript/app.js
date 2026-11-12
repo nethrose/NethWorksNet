@@ -35,7 +35,22 @@ const contentMap = {
       </a>
     </div>
   `,
+  contact: () => `
+    <p class="statement-text">
+      <strong>Neth Works LLC</strong> builds browser-local developer tools and a habit tracker with weekly leagues:
+      <a href="https://nocternal.net" target="_blank" rel="noopener noreferrer">nocternal</a> and
+      <a href="https://useplaceholder.com" target="_blank" rel="noopener noreferrer">placeholder</a>.
+    </p>
+    <p class="statement-text">
+      <a href="mailto:support@nethworks.net">support@nethworks.net</a> for anything.
+      <a href="mailto:security@nethworks.net">security@nethworks.net</a> for security reports.
+    </p>
+  `,
 };
+
+// On contact.html, #main-content shows this content by default (initial load,
+// and whenever a toggled tab is switched off) instead of going blank.
+const homeTab = document.body.dataset.home;
 
 function moveIndicatorTo(link) {
   const indicator = document.querySelector(".nav-indicator");
@@ -59,6 +74,17 @@ function insertContent(container, htmlOrPromise, callback) {
   });
 }
 
+// What #main-content shows with no tab active: the page's home content
+// (contact.html) if one is configured, otherwise blank (index.html).
+function renderHomeOrBlank() {
+  const mainContent = document.getElementById("main-content");
+  if (homeTab && contentMap[homeTab]) {
+    insertContent(mainContent, contentMap[homeTab](), setupWhoisBar);
+  } else {
+    mainContent.innerHTML = "";
+  }
+}
+
 links.forEach(function (link) {
   link.addEventListener("click", function (event) {
     event.preventDefault();
@@ -66,7 +92,7 @@ links.forEach(function (link) {
     const activeLink = document.querySelector(".nav-link.active");
     if (activeLink === this) {
       this.classList.remove("active");
-      document.getElementById("main-content").innerHTML = "";
+      renderHomeOrBlank();
       return;
     }
 
@@ -139,6 +165,11 @@ function alignLayout() {
 
 window.addEventListener("resize", alignLayout);
 
-// Start on a blank page; each nav tab (whois, whatdo) is an opt-in toggle
-// (click to show, click the active one again to hide).
-window.addEventListener("DOMContentLoaded", alignLayout);
+// Each nav tab (whois, whatdo) is an opt-in toggle (click to show, click the
+// active one again to hide), swapping the whole of #main-content. With no
+// tab active, #main-content shows the page's home content (renderHomeOrBlank) -
+// blank on index.html, the contact text on contact.html.
+window.addEventListener("DOMContentLoaded", () => {
+  alignLayout();
+  renderHomeOrBlank();
+});

@@ -262,18 +262,14 @@ section:target {
   position: relative;
 }
 
-/* contact.html now shares the same nav/main as index.html, so this is only
-   spacing for the always-visible contact text above the whois/whatdo area. */
-.contact-content {
-  max-width: 48rem;
-  margin-bottom: 2rem;
-}
-
+/* The contact.html home content (rendered into #main-content, same as any
+   whois/whatdo tab - see renderHomeOrBlank in app.js), so it can never pile
+   up alongside a toggled tab or sit at a different offset than one. */
 .statement-text {
+  max-width: 48rem;
   color: rgba(211, 159, 238, 0.85);
   font-size: 1.3rem;
   line-height: 1.6;
-  overflow-wrap: anywhere;
 }
 
 .statement-text strong {
@@ -289,15 +285,9 @@ section:target {
   color: #ab49de;
 }
 
-.back-link {
-  display: inline-block;
-  margin-top: 0.5rem;
-  color: rgba(211, 159, 238, 0.65);
-  font-size: 1.3rem;
-  text-decoration: underline;
-}
-
-.back-link:hover {
-  color: #d39fee;
+/* An email address must move to its own line as a whole, never split
+   mid-address. */
+.statement-text a[href^="mailto:"] {
+  white-space: nowrap;
 }
 
