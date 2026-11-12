@@ -176,7 +176,7 @@ section:target {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 1.25rem;
 }
 
@@ -216,6 +216,7 @@ section:target {
   display: flex;
   align-items: center;
   gap: 1rem;
+  min-width: 0;
   padding: 0.5rem 1rem;
   color: rgba(211, 159, 238, 0.65);
   text-decoration: none;
@@ -227,8 +228,10 @@ section:target {
 }
 
 .whois-alias {
+  min-width: 0;
   font-size: 1.2rem;
   font-weight: 500;
+  overflow-wrap: anywhere;
 }
 
 /* Animated underline, identical to the nav links */
@@ -259,11 +262,11 @@ section:target {
   position: relative;
 }
 
-/* statement.html has no nav, so its main content starts flush left. */
-.statement-page {
-  margin-left: 0;
+/* contact.html now shares the same nav/main as index.html, so this is only
+   spacing for the always-visible contact text above the whois/whatdo area. */
+.contact-content {
   max-width: 48rem;
-  padding: 1rem 2rem 4.5rem;
+  margin-bottom: 2rem;
 }
 
 .statement-text {

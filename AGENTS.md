@@ -32,12 +32,15 @@ area underneath. Vanilla HTML/CSS/JS — no framework; the one script
   viewport bottom at every width, independent of nav/content height so it
   can't collide with either; stays on one line via tight padding, never a
   smaller font) with a copyright line and a `Contact` link to `contact.html`.
-- `contact.html` — standalone contact page: legal name, one line on what the
-  company makes (nocternal, placeholder), contact addresses, a link back to
-  `index.html`. No nav, no `app.js` (static content only); reuses
-  `css/styles.css` via `.statement-page`/`.statement-text` (class names kept
-  from when this page was introduced as a company statement).
-- `javascript/app.js` — all logic for `index.html`. `contentMap` holds tab
+- `contact.html` — shares `index.html`'s header, nav and `#main-content`
+  toggle area (same markup, same `app.js`), so whois/whatdo work identically
+  from here. Adds an always-visible `.contact-content` block above
+  `#main-content`: legal name, one line on what the company makes (nocternal,
+  placeholder), contact addresses, a link back to `index.html`. Also carries
+  the same `.site-footer`. Reuses `css/styles.css` via `.statement-page`/
+  `.statement-text` (class names kept from when this page was introduced as
+  a standalone company statement, before it gained the shared nav).
+- `javascript/app.js` — shared logic for both pages. `contentMap` holds tab
   content as HTML-returning functions keyed by `data-tab`; `insertContent()`
   injects into `#main-content`. `#main-content` starts blank — clicking
   whois/whatdo is an opt-in toggle. No URL routing. `setupWhoisBar()` drives
@@ -45,7 +48,11 @@ area underneath. Vanilla HTML/CSS/JS — no framework; the one script
   and main to the title.
 - `css/styles.css` — all styles, shared by both pages. Tokens: bg `#201c29`,
   accents `#ab49de` / `#d39fee`, Montserrat (Google Fonts), base font-size
-  62.5% (1rem ≈ 10px).
+  62.5% (1rem ≈ 10px). `.whois-links`/`.whois-link`/`.whois-alias` must stay
+  shrinkable (`min-width: 0`, `overflow-wrap: anywhere`) — a fixed-width flex
+  row here will overflow at narrow widths once a long unbroken label (e.g. a
+  bare domain) is added, since `align-items: stretch` only constrains the
+  cross axis, not word-wrapping.
 - Whois tab renders social links: YouTube/LinkedIn `@netheroth`, GitHub
   `@nethrose`.
 
