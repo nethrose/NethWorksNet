@@ -28,17 +28,23 @@ area underneath. Vanilla HTML/CSS/JS — no framework; the one script
 ## Architecture (read before changing behavior)
 
 - `index.html` — shell: header/title, nav with the whois link + sliding
-  `.nav-indicator`, a static `.company-intro` paragraph (always visible — the
-  LLC name, what it makes, and contact; this is the one part of `<main>` not
-  gated behind a tab click, by design), empty `#main-content`.
-- `javascript/app.js` — all logic. `contentMap` holds tab content as
-  HTML-returning functions keyed by `data-tab`; `insertContent()` injects into
-  `#main-content`. `#main-content` starts blank — clicking whois/whatdo is an
-  opt-in toggle. No URL routing. `setupWhoisBar()` drives the social-links
-  hover bar; `alignLayout()` (on load + resize) aligns nav and main to the
-  title.
-- `css/styles.css` — all styles. Tokens: bg `#201c29`, accents `#ab49de` /
-  `#d39fee`, Montserrat (Google Fonts), base font-size 62.5% (1rem ≈ 10px).
+  `.nav-indicator`, empty `#main-content`, and a `.site-footer` (fixed to the
+  viewport bottom at every width, independent of nav/content height so it
+  can't collide with either) naming Neth Works LLC and linking to
+  `statement.html`.
+- `statement.html` — standalone company-statement page: legal name, one line
+  on what the company makes (nocternal, placeholder), contact addresses, a
+  link back to `index.html`. No nav, no `app.js` (static content only); reuses
+  `css/styles.css` via `.statement-page`/`.statement-text`.
+- `javascript/app.js` — all logic for `index.html`. `contentMap` holds tab
+  content as HTML-returning functions keyed by `data-tab`; `insertContent()`
+  injects into `#main-content`. `#main-content` starts blank — clicking
+  whois/whatdo is an opt-in toggle. No URL routing. `setupWhoisBar()` drives
+  the social-links hover bar; `alignLayout()` (on load + resize) aligns nav
+  and main to the title.
+- `css/styles.css` — all styles, shared by both pages. Tokens: bg `#201c29`,
+  accents `#ab49de` / `#d39fee`, Montserrat (Google Fonts), base font-size
+  62.5% (1rem ≈ 10px).
 - Whois tab renders social links: YouTube/LinkedIn `@netheroth`, GitHub
   `@nethrose`.
 

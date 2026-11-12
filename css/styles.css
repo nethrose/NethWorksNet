@@ -124,32 +124,39 @@ nav a.active::after {
 main {
   /* Fallback; JS aligns this precisely to the nav underline's right edge. */
   margin-left: 7rem;
-  padding: 0 2rem 2rem 0;
+  padding: 0 2rem 4.5rem 0;
 }
 
 #main-content {
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.company-intro {
-  max-width: 48rem;
-  margin: 0 0 2rem;
-  color: rgba(211, 159, 238, 0.85);
-  font-size: 1.3rem;
+/* Fixed to the viewport bottom at every width, independent of nav height and
+   toggle content height, so it can never collide with either. */
+.site-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem;
+  font-size: 1.2rem;
   line-height: 1.6;
+  color: rgba(211, 159, 238, 0.65);
+  background-color: #201c29;
   overflow-wrap: anywhere;
 }
 
-.company-intro strong {
+.footer-brand {
   color: #d39fee;
+  font-weight: 500;
 }
 
-.company-intro a {
+.site-footer a {
   color: #d39fee;
   text-decoration: underline;
 }
 
-.company-intro a:hover {
+.site-footer a:hover {
   color: #ab49de;
 }
 
@@ -246,5 +253,41 @@ section:target {
    underlines provide the visual, matching the nav style left to right. */
 .content-section {
   position: relative;
+}
+
+/* statement.html has no nav, so its main content starts flush left. */
+.statement-page {
+  margin-left: 0;
+  max-width: 48rem;
+  padding: 1rem 2rem 4.5rem;
+}
+
+.statement-text {
+  color: rgba(211, 159, 238, 0.85);
+  font-size: 1.3rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.statement-text strong {
+  color: #d39fee;
+}
+
+.statement-text a {
+  color: #d39fee;
+  text-decoration: underline;
+}
+
+.statement-text a:hover {
+  color: #ab49de;
+}
+
+.back-link {
+  color: rgba(211, 159, 238, 0.65);
+  text-decoration: underline;
+}
+
+.back-link:hover {
+  color: #d39fee;
 }
 
