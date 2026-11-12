@@ -52,13 +52,28 @@ area underneath. Vanilla HTML/CSS/JS — no framework; the one script
   off): `contentMap[document.body.dataset.home]` if the page sets `data-home`,
   else empty. No URL routing. `setupWhoisBar()` drives the social-links hover
   bar; `alignLayout()` (on load + resize) aligns nav and main to the title.
+  `alignMainWithNav()` measures the widest `.nav-link` (not just the first)
+  and adds a fixed `NAV_CONTENT_GAP` (24px) — nav links share one font-weight
+  (`nav a`, not just `.active`) precisely so that width can't change between
+  toggle states and reopen the gap. Below `CONTACT_STACK_BREAKPOINT` (600px),
+  `contact.html` specifically (checked via `homeTab === "contact"`) drops the
+  side-by-side layout and moves `#main-content` below the fixed nav instead:
+  its column is too narrow there for `support@nethworks.net` to sit on one
+  line without either overflowing or splitting mid-address, and both are
+  disallowed (see the `.statement-text a[href^="mailto:"]` rule below).
 - `css/styles.css` — all styles, shared by both pages. Tokens: bg `#201c29`,
-  accents `#ab49de` / `#d39fee`, Montserrat (Google Fonts), base font-size
-  62.5% (1rem ≈ 10px). `.whois-links`/`.whois-link`/`.whois-alias` must stay
-  shrinkable (`min-width: 0`, `overflow-wrap: anywhere`) — a fixed-width flex
-  row here will overflow at narrow widths once a long unbroken label (e.g. a
-  bare domain) is added, since `align-items: stretch` only constrains the
-  cross axis, not word-wrapping.
+  accents `#ab49de` / `#d39fee`, Montserrat (Google Fonts). `rem` here is
+  relative to the root `<html>` (browser default, usually 16px) — `body`'s
+  own `font: 62.5% ...` only sets `body`'s *own* font-size, it does not
+  redefine what `rem` means for descendants; don't assume `1rem ≈ 10px` when
+  sizing or measuring anything. `.whois-links`/`.whois-link`/`.whois-alias`
+  must stay shrinkable (`min-width: 0`, `overflow-wrap: anywhere`) — a
+  fixed-width flex row here will overflow at narrow widths once a long
+  unbroken label (e.g. a bare domain) is added, since `align-items: stretch`
+  only constrains the cross axis, not word-wrapping. By contrast,
+  `.statement-text`'s `mailto:` links use `white-space: nowrap` — an address
+  must never split, so on this page that constraint is met with layout
+  (the stacking above), not a wrap-anywhere fallback.
 - Whois tab renders social links: YouTube/LinkedIn `@netheroth`, GitHub
   `@nethrose`.
 

@@ -94,6 +94,7 @@ nav a {
   text-decoration: none;
   padding: 0.5rem 1rem;
   font-size: 1.4rem;
+  font-weight: 500;
   position: relative;
   display: block;
   transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -101,7 +102,6 @@ nav a {
 
 nav a.active {
   color: #d39fee;
-  font-weight: 500;
 }
 
 nav a::after {
@@ -285,9 +285,9 @@ section:target {
   color: #ab49de;
 }
 
-/* An email address moves to its own line as a whole; it only splits
-   mid-address when it cannot fit on a line by itself (narrow phones). */
+/* An email address must move to its own line as a whole, never split
+   mid-address. */
 .statement-text a[href^="mailto:"] {
-  overflow-wrap: break-word;
+  white-space: nowrap;
 }
 

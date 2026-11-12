@@ -133,13 +133,34 @@ function setupWhoisBar() {
   });
 }
 
-// Line the content area's left edge up with the right edge of the nav
-// link's underline, so content (whois and any future tab) is flush with it.
+// Clear the widest nav label by a fixed gap, so content never starts right
+// at (or just past) a label's edge regardless of which link is widest or
+// active. Nav label widths are stable across active/inactive (same
+// font-weight throughout - see nav a in styles.css), so this holds in every
+// toggle state without needing to re-run on click.
+const NAV_CONTENT_GAP = 24;
+
+// Below this width, contact.html's column beside the nav isn't wide enough
+// for an email address to sit on one line without either splitting it or
+// overflowing the viewport - so content moves below the (still fixed, still
+// left-aligned) nav instead of beside it.
+const CONTACT_STACK_BREAKPOINT = 600;
+
 function alignMainWithNav() {
-  const navLink = document.querySelector(".nav-link");
+  const navLinks = document.querySelectorAll(".nav-link");
+  const nav = document.querySelector("nav");
   const main = document.querySelector("main");
-  if (!navLink || !main) return;
-  main.style.marginLeft = `${navLink.getBoundingClientRect().right}px`;
+  if (!navLinks.length || !nav || !main) return;
+
+  if (homeTab === "contact" && window.innerWidth <= CONTACT_STACK_BREAKPOINT) {
+    main.style.marginLeft = "1rem";
+    main.style.marginTop = `${nav.getBoundingClientRect().bottom + 24}px`;
+    return;
+  }
+
+  main.style.marginTop = "";
+  const maxRight = Math.max(...Array.from(navLinks, (l) => l.getBoundingClientRect().right));
+  main.style.marginLeft = `${maxRight + NAV_CONTENT_GAP}px`;
 }
 
 // Raise the nav so the top of the active indicator bar (= the nav link's top)
