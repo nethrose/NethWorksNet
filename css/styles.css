@@ -94,6 +94,7 @@ nav a {
   text-decoration: none;
   padding: 0.5rem 1rem;
   font-size: 1.4rem;
+  font-weight: 500;
   position: relative;
   display: block;
   transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -101,7 +102,6 @@ nav a {
 
 nav a.active {
   color: #d39fee;
-  font-weight: 500;
 }
 
 nav a::after {
@@ -124,11 +124,44 @@ nav a.active::after {
 main {
   /* Fallback; JS aligns this precisely to the nav underline's right edge. */
   margin-left: 7rem;
-  padding: 0 2rem 2rem 0;
+  padding: 0 2rem 4.5rem 0;
 }
 
 #main-content {
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Fixed to the viewport bottom at every width, independent of nav height and
+   toggle content height, so it can never collide with either. Stays on one
+   line at every width; tight padding/gap buy the room, never a smaller font. */
+.site-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: nowrap;
+  column-gap: 0.4rem;
+  padding: 1rem 0.75rem;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: rgba(211, 159, 238, 0.65);
+  background-color: #201c29;
+  white-space: nowrap;
+}
+
+.footer-sep {
+  color: rgba(211, 159, 238, 0.45);
+}
+
+.site-footer a {
+  color: #d39fee;
+  text-decoration: underline;
+}
+
+.site-footer a:hover {
+  color: #ab49de;
 }
 
 section {
@@ -143,7 +176,7 @@ section:target {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 1.25rem;
 }
 
@@ -183,6 +216,7 @@ section:target {
   display: flex;
   align-items: center;
   gap: 1rem;
+  min-width: 0;
   padding: 0.5rem 1rem;
   color: rgba(211, 159, 238, 0.65);
   text-decoration: none;
@@ -194,8 +228,10 @@ section:target {
 }
 
 .whois-alias {
+  min-width: 0;
   font-size: 1.2rem;
   font-weight: 500;
+  overflow-wrap: anywhere;
 }
 
 /* Animated underline, identical to the nav links */
@@ -224,5 +260,34 @@ section:target {
    underlines provide the visual, matching the nav style left to right. */
 .content-section {
   position: relative;
+}
+
+/* The contact.html home content (rendered into #main-content, same as any
+   whois/whatdo tab - see renderHomeOrBlank in app.js), so it can never pile
+   up alongside a toggled tab or sit at a different offset than one. */
+.statement-text {
+  max-width: 48rem;
+  color: rgba(211, 159, 238, 0.85);
+  font-size: 1.3rem;
+  line-height: 1.6;
+}
+
+.statement-text strong {
+  color: #d39fee;
+}
+
+.statement-text a {
+  color: #d39fee;
+  text-decoration: underline;
+}
+
+.statement-text a:hover {
+  color: #ab49de;
+}
+
+/* An email address must move to its own line as a whole, never split
+   mid-address. */
+.statement-text a[href^="mailto:"] {
+  white-space: nowrap;
 }
 
