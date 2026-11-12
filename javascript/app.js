@@ -154,7 +154,13 @@ function alignMainWithNav() {
 
   if (homeTab === "contact" && window.innerWidth <= CONTACT_STACK_BREAKPOINT) {
     main.style.marginLeft = "1rem";
-    main.style.marginTop = `${nav.getBoundingClientRect().bottom + 24}px`;
+    // marginTop is added to main's own natural (pre-margin) position, not an
+    // absolute page coordinate, so clear it first to measure that baseline,
+    // then add only the delta needed to clear the fixed nav by the gap.
+    main.style.marginTop = "0px";
+    const naturalTop = main.getBoundingClientRect().top;
+    const desiredTop = nav.getBoundingClientRect().bottom + 24;
+    main.style.marginTop = `${Math.max(0, desiredTop - naturalTop)}px`;
     return;
   }
 
