@@ -20,7 +20,8 @@ area underneath. Vanilla HTML/CSS/JS — no framework; the one script
   refuses to finish if the result is missing `Contact` or carries an
   `Expires` already past or more than a year out. Contact is
   `security@nethworks.net` (Neth Works LLC, not a person) — there is
-  deliberately no `/security` page and no nav or footer link. This check only
+  deliberately no `/security` page and no nav or footer link (the contact
+  page text lists the address as plain contact info). This check only
   catches a malformed file at build time: it does not catch staleness, and no
   scheduled job re-runs the build, so the deployed file goes stale if the
   site is not redeployed within six months of its last build.
