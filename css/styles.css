@@ -285,9 +285,9 @@ section:target {
   color: #ab49de;
 }
 
-/* An email address must move to its own line as a whole, never split
-   mid-address. */
+/* An email address moves to its own line as a whole; it only splits
+   mid-address when it cannot fit on a line by itself (narrow phones). */
 .statement-text a[href^="mailto:"] {
-  white-space: nowrap;
+  overflow-wrap: break-word;
 }
 
