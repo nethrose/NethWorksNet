@@ -30,12 +30,13 @@ area underneath. Vanilla HTML/CSS/JS — no framework; the one script
 - `index.html` — shell: header/title, nav with the whois link + sliding
   `.nav-indicator`, empty `#main-content`, and a `.site-footer` (fixed to the
   viewport bottom at every width, independent of nav/content height so it
-  can't collide with either) naming Neth Works LLC and linking to
-  `statement.html`.
-- `statement.html` — standalone company-statement page: legal name, one line
-  on what the company makes (nocternal, placeholder), contact addresses, a
-  link back to `index.html`. No nav, no `app.js` (static content only); reuses
-  `css/styles.css` via `.statement-page`/`.statement-text`.
+  can't collide with either; stays on one line via tight padding, never a
+  smaller font) with a copyright line and a `Contact` link to `contact.html`.
+- `contact.html` — standalone contact page: legal name, one line on what the
+  company makes (nocternal, placeholder), contact addresses, a link back to
+  `index.html`. No nav, no `app.js` (static content only); reuses
+  `css/styles.css` via `.statement-page`/`.statement-text` (class names kept
+  from when this page was introduced as a company statement).
 - `javascript/app.js` — all logic for `index.html`. `contentMap` holds tab
   content as HTML-returning functions keyed by `data-tab`; `insertContent()`
   injects into `#main-content`. `#main-content` starts blank — clicking

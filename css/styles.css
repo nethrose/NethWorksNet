@@ -132,39 +132,27 @@ main {
 }
 
 /* Fixed to the viewport bottom at every width, independent of nav height and
-   toggle content height, so it can never collide with either. Each child is
-   an atomic flex item (nowrap), so a too-narrow viewport wraps the whole
-   "Company statement" link to its own line instead of breaking its words. */
+   toggle content height, so it can never collide with either. Stays on one
+   line at every width; tight padding/gap buy the room, never a smaller font. */
 .site-footer {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   display: flex;
-  flex-wrap: wrap;
-  column-gap: 0.6rem;
-  row-gap: 0.2rem;
-  padding: 1rem;
+  align-items: baseline;
+  flex-wrap: nowrap;
+  column-gap: 0.4rem;
+  padding: 1rem 0.75rem;
   font-size: 1.2rem;
   line-height: 1.6;
   color: rgba(211, 159, 238, 0.65);
   background-color: #201c29;
-}
-
-.footer-brand {
-  color: #d39fee;
-  font-weight: 500;
   white-space: nowrap;
 }
 
-.footer-brand::after {
-  content: " —";
-  color: rgba(211, 159, 238, 0.65);
-  font-weight: 400;
-}
-
-.footer-link {
-  white-space: nowrap;
+.footer-sep {
+  color: rgba(211, 159, 238, 0.45);
 }
 
 .site-footer a {
