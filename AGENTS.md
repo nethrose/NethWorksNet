@@ -7,7 +7,7 @@ area underneath. Vanilla HTML/CSS/JS — no framework; the one script
 ## Deploy + DNS blast radius
 
 - **Netlify auto-deploys on push to the default branch** — verify locally
-  before pushing. Static publish (`netlify.toml`, `publish = "."`); the Node 24
+  before pushing. Static publish (`netlify.toml`, `publish = "."`); the Node 26
   pins (`.nvmrc`, `netlify.toml`) matter only to the Netlify environment.
 - **Netlify also runs DNS for `nethworks.net`, and the same zone serves
   `jellyfin.nethworks.net` for the cm3588 NAS.** DNS-affecting changes have

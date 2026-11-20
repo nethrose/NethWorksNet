@@ -7,4 +7,4 @@
 # Node version: also set via .nvmrc; keep the two in step and raise them together
 # Agent Runners require Node 24+
 [build.environment]
-  NODE_VERSION = "24.22.3"
+  NODE_VERSION = "26.13.1"
